@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../Post.css';
-import axios from 'axios';
+
 
 class Post extends Component {
 
@@ -9,15 +9,40 @@ class Post extends Component {
         this.state = {
           post: []
         };
+
+        // Slice post if it's too long
+        this.slicePost = this.slicePost.bind(this);
       }
+
+      
+
+
+  slicePost(){
+      let slicedPost = {};
+      if (this.props.post.title.length >30 ){
+        slicedPost.title = this.props.post.title.slice(0, 30) + "...";
+      } else {
+        slicedPost.title = this.props.post.title;
+      }
+
+      if (this.props.post.content.length >150 ){
+        slicedPost.content = this.props.post.content.slice(0, 150) + "...";
+      } else{
+        slicedPost.content = this.props.post.content;
+      }
+       return this.setState({post: slicedPost});
+      }
+
+ 
     
       componentDidMount() {
-        const { id } = this.props.post;
-        // axios.get(`http://localhost:5000/api/posts/${id}`)
-        //   .then(res => {
+
+            //Get post passed from props
             this.setState({ post: this.props.post });
-            // console.log(this.state.post);
-        //   });
+
+            //slice post if it's too long
+            this.slicePost();
+  
       }
       render() {
         return (
@@ -45,10 +70,10 @@ class Post extends Component {
 
                         <div className="blog-body">
                             <div className="blog-title">
-                                <h1><a href="#">{this.state.post.title}</a></h1>
+                                <h1><a href="#">{ this.state.post.title }</a></h1>
                             </div>
                             <div className="blog-summary">
-                                <p>{this.state.post.content}</p>
+                                <p>{this.state.post.content }</p>
                             </div>
                             <div className="blog-tags">
                                 <ul>

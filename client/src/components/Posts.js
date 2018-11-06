@@ -22,8 +22,8 @@ class Posts extends Component {
     render() {
         return (
 			<div>	
-				{this.state.posts.map(post =>
-					<Post post = {post} key={post.id}></Post>
+				{this.state.posts.map((post, i) =>
+					<Post post = {post} key={i}></Post>
 				)}
 			</div>
         );
