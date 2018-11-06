@@ -1,0 +1,26 @@
+.vert{
+    margin-top: 10px;
+}
+
+.twitter-blue{
+    background: #3498db;
+    margin: auto;
+    text-shadow: #2084c7 1px 1px 0;
+    padding: 1em 0 !important;
+    color: white;
+    text-align: center;
+    margin-top: 1em;
+    font-family: "Lato";
+    font-size: 1.6em;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    position: relative
+}
+.nav-brand{
+    margin-left: 10px;
+    text-decoration-style: double;
+}
+.inviteUser{
+    padding-left: 5px;
+  
+}
