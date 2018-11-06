@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import TimeAgo from './TimeAgo';
 import '../Post.css';
 
 
@@ -37,11 +38,10 @@ class Post extends Component {
     
       componentDidMount() {
 
-            //Get post passed from props
-            this.setState({ post: this.props.post });
+            //Get post passed from props and slice post if it's too long
 
-            //slice post if it's too long
             this.slicePost();
+            
   
       }
       render() {
@@ -86,7 +86,9 @@ class Post extends Component {
 
                         <div className="blog-footer">
                             <ul>
-                                <li className="published-date">12 days ago</li>
+                                <li className="published-date">
+                                 <TimeAgo timestamp={ this.props.timestamp }/>
+                                </li>
                                 <li className="comments">
                                     <a href="#">
                                         <svg className="icon-bubble">

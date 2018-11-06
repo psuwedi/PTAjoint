@@ -13,7 +13,7 @@ const Post = require('../../models/Post');
 
 router.get('/', (req, res) => {
     Post.find()
-        .sort({ date: -1 })
+        .sort({ createdAt: -1 })
         .then( posts => res.json(posts))
 });
 

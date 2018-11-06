@@ -23,7 +23,7 @@ class Posts extends Component {
         return (
 			<div>	
 				{this.state.posts.map((post, i) =>
-					<Post post = {post} key={i}></Post>
+					<Post post = {post} key={i} timestamp={new Date(post.createdAt)}></Post>
 				)}
 			</div>
         );
