@@ -5,6 +5,10 @@ const Schema = mongoose.Schema;
 // Create Post schema
 
 const PostSchema = new Schema({
+    postId: {
+        type: String,
+        required: true
+    },
     title:{
         type: String,
         required: true
@@ -13,16 +17,17 @@ const PostSchema = new Schema({
         type: String,
         required: true
     },
-    author:[{ type: Schema.Types.ObjectId, ref: 'User' }]
-    ,
-  
-
-    // comments  : [Comments], 
-    // meta      : {
-    //       votes : Number
-    // }
+    userId:{
+         type: String, 
+         required: true
+    },
+    viewCount: {
+        type: Number,
+        default: 0
+    }
 },
 {
+    // For createdAt and updatedAt timestamps
     timestamps: true
   });
 
