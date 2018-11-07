@@ -84,7 +84,7 @@ class Post extends Component {
                             </div>
                         </div>
 
-                        <div className="blog-footer">
+                        <div className="post-footer">
                             <ul>
                                 <li className="published-date">
                                  <TimeAgo timestamp={ this.props.timestamp }/>

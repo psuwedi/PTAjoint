@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Posts from './components/Posts';
+import PostList from './components/PostList';
 import Post from './components/Post';
 
 
@@ -13,7 +13,7 @@ ReactDOM.render(
   <Router>
       <div>
         <Route exact path='/' component={App} />
-        <Route path='/posts' component={Posts} />
+        <Route path='/posts' component={PostList} />
         <Route path='/posts/:id' component={Post} />
       </div>
   </Router>,

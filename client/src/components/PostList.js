@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Post from './Post';
-class Posts extends Component {
+class PostList extends Component {
 
     constructor(props) {
         super(props);
@@ -30,7 +30,7 @@ class Posts extends Component {
     }
   }
   
-  export default Posts;
+  export default PostList;
 
 
 

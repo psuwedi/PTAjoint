@@ -95,26 +95,26 @@ body {
     white-space: nowrap;
     width: 5rem;
   }
-  .blog-footer {
+  .post-footer {
     border-top: 1px solid #e6e6e6;
     margin: 0 auto;
     padding-bottom: 0.125rem;
     width: 80%;
   }
-  .blog-footer ul {
+  .post-footer ul {
     list-style: none;
     display: flex;
     flex: row wrap;
     justify-content: flex-end;
     padding-left: 0;
   }
-  .blog-footer li:first-child {
+  .post-footer li:first-child {
     margin-right: auto;
   }
-  .blog-footer li + li {
+  .post-footer li + li {
     margin-left: 0.5rem;
   }
-  .blog-footer li {
+  .post-footer li {
     color: #999;
     font-size: 0.75rem;
     height: 1.5rem;
@@ -125,7 +125,7 @@ body {
     position: relative;
     white-space: nowrap;
   }
-  .blog-footer li a {
+  .post-footer li a {
     color: #999;
   }
   .comments {
