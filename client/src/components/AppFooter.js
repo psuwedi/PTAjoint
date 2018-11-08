@@ -18,10 +18,10 @@ return (
       <h5 className="title"> Quick Links</h5>
       <ul>
         <li className="list-unstyled">
-          <a href="#!">Posts</a>
+          <a href="#!">Login</a>
         </li>
         <li className="list-unstyled">
-          <a href="#!">Donate</a>
+          <a href="#!">Register</a>
         </li>
         <li className="list-unstyled">
           <a href="#!">About Us</a>

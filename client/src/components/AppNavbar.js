@@ -52,8 +52,8 @@ class AppNavbar extends Component {
                                 <DropdownMenu>
                                     <DropdownItem href="#">Login</DropdownItem>
                                     <DropdownItem href="#">Join Group</DropdownItem>
-                                    <DropdownItem href="#">Something else here</DropdownItem>
-                                    <DropdownItem href="#">Something else here</DropdownItem>
+                                    <DropdownItem href="#">Settngs</DropdownItem>
+                                    <DropdownItem href="#">About</DropdownItem>
                                 </DropdownMenu>
                             </Dropdown>
                           </NavItem>

@@ -10,12 +10,23 @@ import axios from 'axios';
 
 class CreatePost extends Component {
 
+    constructor(props) {
+        super(props);
 
-    state = {
-          title:'',
-          content:''
-      }
-    
+        this.state = {
+            title:'',
+            content:''
+        }
+
+        this.submitHandler = this.submitHandler.bind(this);
+        this.reloadPosts = this.reloadPosts.bind(this);
+    }
+
+    //push newly created post to the top 
+
+    reloadPosts (){
+        window.location.reload();
+    }
 
       submitHandler = (event) => {
         event.preventDefault();
@@ -46,17 +57,11 @@ class CreatePost extends Component {
                 content
             })
           .then(res => {
+              this.reloadPosts();
             console.log(res.data);
           });
-       
-            // return this.setState({...this.state, [event.target.name]: event.target.value})
         }
       
-    
-    //   changeHandler = (event) => {
-    //     this.setState({...this.state, [event.target.name]: event.target.value})
-    //   }
-
 
   render() {
     return (
