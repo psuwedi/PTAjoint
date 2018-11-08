@@ -16,11 +16,23 @@
     border-top-right-radius: 8px;
     position: relative
 }
-.nav-brand{
-    margin-left: 10px;
-    text-decoration-style: double;
+.pushDown{
+    margin-top: 10px;
+  
+}
+
+.fixed{
+    position: relative;
+}
+.leftMargin{
+
+    margin-right: 5px;
 }
 .inviteUser{
     padding-left: 5px;
   
+}
+
+.spaceBelow{
+    padding-bottom: 10px;
 }

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import PostList from './components/PostList';
-import Post from './components/Post';
+import ReadView from './components/ReadView';
 
 
 
@@ -13,8 +13,8 @@ ReactDOM.render(
   <Router>
       <div>
         <Route exact path='/' component={App} />
-        <Route path='/posts' component={PostList} />
-        <Route path='/posts/:id' component={Post} />
+        <Route path='/announcements' component={App} />
+        <Route path='/posts/:id' component={ReadView} />
       </div>
   </Router>,
   document.getElementById('root')

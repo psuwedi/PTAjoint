@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
 import TimeAgo from './TimeAgo';
 import '../Post.css';
+import PropTypes from 'prop-types';
 
 
-class Post extends Component {
+export default class Post extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-          post: []
+          post: {}
         };
 
         // Slice post if it's too long
@@ -31,6 +33,9 @@ class Post extends Component {
       } else{
         slicedPost.content = this.props.post.content;
       }
+
+      slicedPost.postId = this.props.post._id;
+   
        return this.setState({post: slicedPost});
       }
 
@@ -39,9 +44,7 @@ class Post extends Component {
       componentDidMount() {
 
             //Get post passed from props and slice post if it's too long
-
             this.slicePost();
-            
   
       }
       render() {
@@ -70,7 +73,11 @@ class Post extends Component {
 
                         <div className="blog-body">
                             <div className="blog-title">
-                                <h1><a href="#">{ this.state.post.title }</a></h1>
+                                <h1>
+                                    <NavLink to={'/posts/'+this.state.post.postId} activeClassName="active">
+                                      { this.state.post.title }
+                                    </NavLink> 
+                                </h1>
                             </div>
                             <div className="blog-summary">
                                 <p>{this.state.post.content }</p>
@@ -110,4 +117,7 @@ class Post extends Component {
     }
 }
 
-export default Post;
+
+Post.propTypes = {
+    slicePost: PropTypes.bool
+};
