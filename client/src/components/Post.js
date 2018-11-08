@@ -84,9 +84,9 @@ export default class Post extends Component {
                             </div>
                             <div className="blog-tags">
                                 <ul>
-                                    <li><a href="#">design</a></li>
-                                    <li><a href="#">web dev</a></li>
-                                    <li><a href="#">css</a></li>
+                                    <li><a href="#">Mathematics</a></li>
+                                    <li><a href="#">Tutorial</a></li>
+                                    <li><a href="#">Some other tag</a></li>
                                 </ul>
                             </div>
                         </div>

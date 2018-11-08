@@ -67,7 +67,7 @@ class CreatePost extends Component {
     return (
       <div className="create">
 
-      <div className="jumbotron jumbotron-fluid pushDown">
+      <div className="card jumbotron-fluid pushDown">
         <div className="container">
         <div className="row justify-content-center">
             <div className="col-md-6">

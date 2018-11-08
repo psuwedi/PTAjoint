@@ -8,14 +8,22 @@ class PostList extends Component {
         this.state = {
           posts: []
         };
+
+        this.loadData = this.loadData.bind(this);
+      }
+
+      loadData(){
+        axios.get('http://localhost:5000/api/posts')
+        .then(res => {
+          this.setState({ posts: res.data });
+          console.log(this.state.posts);
+        });
       }
     
       componentDidMount() {
-        axios.get('http://localhost:5000/api/posts')
-          .then(res => {
-            this.setState({ posts: res.data });
-            console.log(this.state.posts);
-          });
+
+          this.loadData()
+          
       }
     
 

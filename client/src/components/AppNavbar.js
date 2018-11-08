@@ -38,10 +38,10 @@ class AppNavbar extends Component {
                     <Collapse isOpen = { this.state.collapse } navbar>
                         <NavbarNav left>
                           <NavItem active>
-                              <NavLink to="#">Home</NavLink>
+                              <NavLink to="/">Home</NavLink>
                           </NavItem>
                           <NavItem>
-                              <NavLink to="#">Posts</NavLink>
+                              <NavLink to="#">Groups</NavLink>
                           </NavItem>
                           <NavItem>
                               <NavLink to="#">Announcements</NavLink>
