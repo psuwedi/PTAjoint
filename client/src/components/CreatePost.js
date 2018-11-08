@@ -85,10 +85,7 @@ class CreatePost extends Component {
             
         </div>
         </div>
-    </div>
-
-        
-       
+         </div> 
       </div>
     );
   }

@@ -9,9 +9,28 @@ return (
   <Container fluid className="text-center text-md-left">
     <Row>
       <Col md="6">
-      <h5 className="title">Footer Content</h5>
+      <h5 className="title"> What we offer</h5>
       <p>
-        Curabitur aliquet quam id dui posuere blandit. Nulla porttitor accumsan tincidunt. Curabitur aliquet quam id dui posuere blandit.
+      <p><small>A few of the many features avaliable to schools and parents</small></p>
+
+    <div className="row">
+      <div className="col-5">
+        <p > <i className="fa fa-address-card leftMargin"></i> Contact Management</p>
+        <p><small>We'll manage everyone's contact information, making it easy to get a hold of one another.</small></p>
+      </div>
+
+
+      <div className="col-5">
+      <p> <i className="fa fa-lock leftMargin"></i> User Privacy</p>
+
+      <p><small>
+        Long gone are the days of exchanging emails. We'll ensure that your contact information stays secure.</small></p>
+      </div>
+
+    </div>
+
+  
+
       </p>
       </Col>
       <Col md="6">
