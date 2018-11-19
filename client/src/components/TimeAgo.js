@@ -65,7 +65,7 @@ export default class TimeAgo extends Component {
 }
 
 
-// Make sure timestamp prop is always passed andd valid
+// Make sure timestamp prop is always passed and valid
 
 TimeAgo.propTypes = {
     timestamp: PropTypes.instanceOf(Date).isRequired

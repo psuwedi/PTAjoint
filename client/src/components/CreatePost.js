@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Input } from 'mdbreact';
+import Spinner from './Spinner';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
@@ -71,6 +72,7 @@ class CreatePost extends Component {
         <div className="container">
         <div className="row justify-content-center">
             <div className="col-md-6">
+            
             <form  onSubmit={this.submitHandler} noValidate>
                 {/* Title input */}
                 <Input label="Title" name="title" /> 
@@ -78,7 +80,7 @@ class CreatePost extends Component {
                 {/* Post content */}
                 <Input type="textarea" label="Content"  name="content"/>
                 <div className="col-md-8">
-                    <Button color="success" className="spaceBelow" type="submit">Create Post</Button>
+                    <Button color="success" className="spaceBelow changeColor" type="submit">Create Post</Button>
                 </div>
             </form>
             </div>

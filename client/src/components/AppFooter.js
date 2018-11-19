@@ -33,8 +33,10 @@ return (
 
       </p>
       </Col>
+     
       <Col md="6">
       <h5 className="title"> Quick Links</h5>
+      <div className="row">
       <ul>
         <li className="list-unstyled">
           <a href="#!">Login</a>
@@ -49,7 +51,9 @@ return (
           <a href="#!">Contact Us</a>
         </li>
       </ul>
+      </div>
       </Col>
+  
     </Row>
   </Container>
   <div className="footer-copyright text-center py-3">

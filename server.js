@@ -26,8 +26,16 @@ const db = require('./config/keys').mongoURI;
 mongoose
   .connect(db, { useNewUrlParser: true })
   .then( () => console.log('MongoDB connected!'))
-  .catch( (err) => console.log(err)    
-  );
+  .catch( (err) =>
+   console.log(err))
+  // { 
+  //   if(err[MongoNetworkError]){
+  //     console.log("Could not connect to MongoDB database, check your connection")
+  //   } else
+
+  //   console.log(err)  
+  // }
+  // );
 
   //Use routes
   app.use('/api/users', users);
