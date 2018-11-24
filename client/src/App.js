@@ -3,6 +3,7 @@ import PostList from './components/PostList';
 import AppFooter from './components/AppFooter';
 import AppNavbar from './components/AppNavbar';
 import CreatePost from './components/CreatePost';
+// import Register from './components/Register';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
@@ -19,7 +20,8 @@ class App extends Component {
           <AppNavbar></AppNavbar>
        </div>
        <CreatePost></CreatePost>
-        <PostList></PostList>
+       <PostList></PostList>
+       {/* <Register></Register> */}
         <AppFooter></AppFooter>
       </div>
       </div>
