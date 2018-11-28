@@ -8,20 +8,42 @@ import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
 import 'mdbreact/dist/css/mdb.css';
 import './App.css';
+import {
+  getFromStorage,
+  setInStorage,
+} from './utils/storage';
 
 
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: '',  
+    };
+  
+  }
+  
+  componentDidMount() {
+    const obj = getFromStorage('the_main_app');
+    if (obj && obj.name) {
+      const { name } = obj;
+      this.setState({
+        name,
+      })
+    }
+  }
   render() {
     return (
       <div className="App">
       <div className="container">
         <div className="pushDown">
-          <AppNavbar></AppNavbar>
+          <AppNavbar name={(this.state.name.length>0)?(this.state.name):('')}></AppNavbar>
        </div>
        <CreatePost></CreatePost>
        <PostList></PostList>
-       {/* <Register></Register> */}
         <AppFooter></AppFooter>
       </div>
       </div>

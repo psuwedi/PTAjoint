@@ -4,10 +4,10 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import PostList from './components/PostList';
-import Register from './components/Register';
-import Login from './components/Login';
+import Home from './components/Home/Home';
 import ReadView from './components/ReadView';
-import CreatePost from './components/CreatePost';
+import Register from './components/Register';
+import LoginView from './components/LoginView';
 
 
 
@@ -15,10 +15,11 @@ import CreatePost from './components/CreatePost';
 ReactDOM.render(
   <Router>
       <div>
-        <Route exact path='/' component={App} />
+        <Route exact path='/home' component={App} />
         <Route path='/announcements' component={App} />
-        <Route path='/accounts/register' component={Register} />
-        <Route path='/accounts/login' component={Login} />
+        <Route path='/check' component={Register} />
+        <Route path='/accounts/signup' component={Home} />
+        <Route path='/accounts/login' component={LoginView} />
         <Route path='/posts/:id' component={ReadView} />
       </div>
   </Router>,

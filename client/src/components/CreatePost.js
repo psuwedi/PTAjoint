@@ -6,7 +6,9 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import '../App.css';
 import axios from 'axios';
-
+import {
+    getFromStorage,
+  } from '../utils/storage';
 
 
 class CreatePost extends Component {
@@ -15,6 +17,7 @@ class CreatePost extends Component {
         super(props);
 
         this.state = {
+            userId: '',
             title:'',
             content:''
         }
@@ -55,13 +58,24 @@ class CreatePost extends Component {
         axios
         .post('http://localhost:5000/api/posts/', {
                 title,
-                content
+                content,
+                userId: this.state.userId
             })
           .then(res => {
               this.reloadPosts();
             console.log(res.data);
           });
         }
+
+        componentDidMount() {
+            const obj = getFromStorage('the_main_app');
+            if (obj && obj.userId) {
+              const { userId } = obj;
+              this.setState({
+                userId
+              })
+            }
+          }
       
 
   render() {

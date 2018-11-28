@@ -10,7 +10,12 @@ import { Navbar,
          DropdownToggle, 
          DropdownMenu, 
          DropdownItem } from 'mdbreact';
+import { getFromStorage } from '../utils/storage';
+import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Redirect } from 'react-router';
+
+
 
 class AppNavbar extends Component {
     constructor(props) {
@@ -20,13 +25,50 @@ class AppNavbar extends Component {
             isWideEnough: false,
         };
     this.onClick = this.onClick.bind(this);
+    this.logout = this.logout.bind(this);
+    this.redirectToLogin = this.redirectToLogin.bind(this);
     }
 
+    redirectToLogin(){
+        return <Redirect to="/accounts/login" />
+    }
     onClick(){
         this.setState({
             collapse: !this.state.collapse,
         });
     }
+
+    logout() {
+        this.setState({
+          isLoading: true,
+        });
+        const obj = getFromStorage('the_main_app');
+        if (obj && obj.token) {
+          const { token } = obj;
+          // Verify token
+          axios.get('http://localhost:5000/api/users/account/logout?token=' + token)
+            .then(res => res.data)
+            .then(res => {
+              if (res.success) {
+                this.setState({
+                  token: '',
+                  name: '',
+                  isLoading: false
+                });
+                this.redirectToLogin();
+              } else {
+                this.setState({
+                  isLoading: false,
+                });
+              }
+            });
+        } else {
+          this.setState({
+            isLoading: false,
+          });
+        }
+      }
+
     render() {
         return (
             <Router>
@@ -48,13 +90,29 @@ class AppNavbar extends Component {
                           </NavItem>
                           <NavItem>
                             <Dropdown>
-                                <DropdownToggle nav caret>Tasks</DropdownToggle>
-                                <DropdownMenu>
-                                    <DropdownItem href="#">Login</DropdownItem>
-                                    <DropdownItem href="#">Join Group</DropdownItem>
-                                    <DropdownItem href="#">Settngs</DropdownItem>
-                                    <DropdownItem href="#">About</DropdownItem>
-                                </DropdownMenu>
+                            {
+                                ((this.props.name)) ? (
+                                <div>
+                                    <DropdownToggle nav caret>{this.props.name}</DropdownToggle>
+                                    <DropdownMenu>
+                                        <DropdownItem href="#"> 
+                                            <a href="/accounts/login" onClick={ this.logout}>Logout</a>
+                                        </DropdownItem>
+                                        <DropdownItem href="#">Join Group</DropdownItem>
+                                        <DropdownItem href="#">Settngs</DropdownItem>
+                                        <DropdownItem href="#">Profile</DropdownItem>
+                                    </DropdownMenu>
+                                </div>
+                                ) : (
+                                    <div>
+                                        <NavItem>
+                                            <NavLink to="/accounts/login" onClick={ this.redirectToLogin}>Login</NavLink>
+                                        </NavItem>
+                                    </div>
+                                )
+                            }
+                                
+                                
                             </Dropdown>
                           </NavItem>
                         </NavbarNav>

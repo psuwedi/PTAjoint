@@ -79,7 +79,7 @@ class ReadView extends Component {
     //Return to post index page after deleting post 
 
         reloadPosts (){     
-          window.location.assign("/");
+          window.location.assign("/home");
       }
 
     //Delete post 
@@ -155,7 +155,7 @@ class ReadView extends Component {
     <div className="row justify-content-md-center">
     <div className="col-12 col-md-auto">
             
-            <Link to="/">
+            <Link to="#">
               <Button color="primary" rounded outline><i className="fa fa-angle-double-left leftMargin"></i>View all posts</Button>
             </Link>
          

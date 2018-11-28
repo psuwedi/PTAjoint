@@ -3,6 +3,9 @@ import { NavLink } from 'react-router-dom';
 import TimeAgo from './TimeAgo';
 import '../Post.css';
 import PropTypes from 'prop-types';
+import axios from 'axios';
+
+
 
 
 export default class Post extends Component {
@@ -10,11 +13,13 @@ export default class Post extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          user: {},
           post: {}
         };
 
         // Slice post if it's too long
         this.slicePost = this.slicePost.bind(this);
+        this.getUser = this.getUser.bind(this);
       }
 
       
@@ -39,12 +44,33 @@ export default class Post extends Component {
        return this.setState({post: slicedPost});
       }
 
+      getUser(){
+
+         const { userId } = this.props.post;
+
+          axios.get('http://localhost:5000/api/users/'+userId)
+          .then(res => {
+            this.setState({ user: res.data });
+            console.log('User: '+this.state.user);
+          })
+          .catch(err =>{
+              console.log('Error getting user: '+err)
+          });
+        }
+
+         
+
+      
+
  
     
       componentDidMount() {
 
             //Get post passed from props and slice post if it's too long
             this.slicePost();
+            
+            this.getUser();
+            
   
       }
       render() {
@@ -67,7 +93,8 @@ export default class Post extends Component {
 
                         <div className="blog-header">
                             <div className="blog-author--no-cover">
-                                <h3>John Doe</h3>
+                                {/* <h3>{this.state.user.firstName+' '+this.state.user.lastName}</h3> */}
+                                <h3>{ (this.state.user !== null ? this.state.user.firstName+" "+this.state.user.email : "John Doe")} </h3>
                             </div>
                         </div>
 

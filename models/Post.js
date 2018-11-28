@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
     postId: {
         type: String,
-        default: 'some_fake_id'
+    
     },
     title:{
         type: String,
@@ -19,7 +19,7 @@ const PostSchema = new Schema({
     },
     userId:{
          type: String, 
-         default: 'some_fake_id'
+         
     },
     viewCount: {
         type: Number,

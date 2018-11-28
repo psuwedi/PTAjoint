@@ -36,10 +36,11 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
 
-    // Create new user in memory
+    // Create new post in memory
     const newPost = new Post({
         title: req.body.title,
-        content: req.body.content
+        content: req.body.content,
+        userId: req.body.userId
     });
 
     // Save newly created post in the DB
