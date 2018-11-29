@@ -22,3 +22,18 @@ export function getFromStorage(key) {
       console.error(err);
     }
   }
+
+  export function deleteInStorage(key){
+    if(!key){
+      console.error('Error: key is missing');
+    }
+    try{
+      localStorage.removeItem(key);
+    } catch(err) {
+      console.error('Error '+err);
+    }
+  }
+
+  export function clearStorage(){
+    localStorage.clear();
+  }

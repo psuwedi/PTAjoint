@@ -10,7 +10,7 @@ import { Navbar,
          DropdownToggle, 
          DropdownMenu, 
          DropdownItem } from 'mdbreact';
-import { getFromStorage } from '../utils/storage';
+import { getFromStorage, clearStorage } from '../utils/storage';
 import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Redirect } from 'react-router';
@@ -55,6 +55,10 @@ class AppNavbar extends Component {
                   name: '',
                   isLoading: false
                 });
+
+                //clear storage & destory current session
+                clearStorage();
+                
                 this.redirectToLogin();
               } else {
                 this.setState({
@@ -83,7 +87,7 @@ class AppNavbar extends Component {
                               <NavLink to="/">Home</NavLink>
                           </NavItem>
                           <NavItem>
-                              <NavLink to="#">Groups</NavLink>
+                              <NavLink to="#">Calendar</NavLink>
                           </NavItem>
                           <NavItem>
                               <NavLink to="#">Announcements</NavLink>

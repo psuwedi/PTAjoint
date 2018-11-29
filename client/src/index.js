@@ -6,7 +6,7 @@ import * as serviceWorker from './serviceWorker';
 import PostList from './components/PostList';
 import Home from './components/Home/Home';
 import ReadView from './components/ReadView';
-import Register from './components/Register';
+import RegisterView from './components/RegisterView';
 import LoginView from './components/LoginView';
 
 
@@ -17,7 +17,7 @@ ReactDOM.render(
       <div>
         <Route exact path='/home' component={App} />
         <Route path='/announcements' component={App} />
-        <Route path='/check' component={Register} />
+        <Route path='/check' component={RegisterView} />
         <Route path='/accounts/signup' component={Home} />
         <Route path='/accounts/login' component={LoginView} />
         <Route path='/posts/:id' component={ReadView} />

@@ -94,7 +94,7 @@ export default class Post extends Component {
                         <div className="blog-header">
                             <div className="blog-author--no-cover">
                                 {/* <h3>{this.state.user.firstName+' '+this.state.user.lastName}</h3> */}
-                                <h3>{ (this.state.user !== null ? this.state.user.firstName+" "+this.state.user.email : "John Doe")} </h3>
+                                <h3>{ (this.state.user !== null ? this.state.user.firstName+" "+this.state.user.lastName : "John Doe")} </h3>
                             </div>
                         </div>
 
