@@ -46,7 +46,6 @@ class Groups extends Component {
         return (
             <div className="App">
             <div className="container">
-            
                 <AppNavbar  name={(this.state.name.length>0)?(this.state.name):('')}/>
             <div className="pushDown">
             <React.Fragment>	
@@ -54,13 +53,12 @@ class Groups extends Component {
 					<Group group = {group} key={i} ></Group>
 				)}
 			</React.Fragment>
-            </div>
-                
+            </div>  
                 <AppFooter></AppFooter>
             </div>
             </div>
             );
-            };
+          };
     }
 
 export default Groups;

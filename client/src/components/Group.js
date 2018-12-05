@@ -5,7 +5,8 @@ import { MDBCard,
     MDBRow, 
     MDBContainer,
     MDBCardHeader,
-    Button 
+    Button,
+    MDBIcon 
 } from "mdbreact";
 
 import { getFromStorage } from '../utils/storage';
@@ -17,7 +18,7 @@ class Groups extends Component {
         super(props);
         this.state = {
           isLoading: true,
-          currentUserId:'',
+          currentUserId:"",
           groups: []
         };
         this.get_random_color = this.get_random_color.bind(this);
@@ -38,13 +39,18 @@ class Groups extends Component {
     ComponentDidMount(){
       const obj = getFromStorage('the_main_app');
       if (obj && obj.userId) {
-        const { userId } = obj;
+        let { userId } = obj;
 
         this.setState({
           currentUserId: userId
-        })}
+        })
 
-        console.log(this.check_if_user_is_already_a_member(this.state.currentUserId, this.props.group.members));
+        console.log(userId);
+      }
+
+        
+
+    //  this.check_if_user_is_already_a_member(this.state.currentUserId, this.props.group.members);
     }
 
     render(){
@@ -61,7 +67,8 @@ class Groups extends Component {
                       {this.props.group.description}
                       <p>
                       <Button color='primary'>{
-                        (this.check_if_user_is_already_a_member(this.state.currentUserId, this.props.group.members))?("You are a member"):("Join Group")
+                        (this.check_if_user_is_already_a_member(getFromStorage('the_main_app').userId, this.props.group.members))?
+                        (<span><MDBIcon icon="folder-open" /> View posts</span> ):("Join Group")
                       }</Button>
                       </p>
                     </MDBCardBody>
