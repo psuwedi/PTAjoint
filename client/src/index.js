@@ -8,6 +8,7 @@ import Home from './components/Home/Home';
 import ReadView from './components/ReadView';
 import RegisterView from './components/RegisterView';
 import LoginView from './components/LoginView';
+import Groups from './components/Groups';
 
 
 
@@ -16,8 +17,10 @@ ReactDOM.render(
   <Router>
       <div>
         <Route exact path='/home' component={App} />
+        <Route exact path='/' component={App} />
         <Route path='/announcements' component={App} />
         <Route path='/check' component={RegisterView} />
+        <Route path='/groups' component={Groups} />
         <Route path='/accounts/signup' component={Home} />
         <Route path='/accounts/login' component={LoginView} />
         <Route path='/posts/:id' component={ReadView} />

@@ -2,7 +2,7 @@ const express = require('express');
 
 const router = express.Router();
 
-// User model
+// Post model
 const Post = require('../../models/Post');
 
 // @route GET api/posts
@@ -13,8 +13,8 @@ const Post = require('../../models/Post');
 
 router.get('/', (req, res) => {
     Post.find()
-        .sort({ createdAt: -1 })
-        .then( posts => res.json(posts))
+    .sort({ createdAt: -1 })
+    .then( posts => res.json(posts))
 });
 
 

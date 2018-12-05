@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
+const groups = require('./routes/api/groups');
 
 
 const app = express();
@@ -28,18 +29,12 @@ mongoose
   .then( () => console.log('MongoDB connected!'))
   .catch( (err) =>
    console.log(err))
-  // { 
-  //   if(err[MongoNetworkError]){
-  //     console.log("Could not connect to MongoDB database, check your connection")
-  //   } else
 
-  //   console.log(err)  
-  // }
-  // );
 
   //Use routes
   app.use('/api/users', users);
   app.use('/api/posts', posts);
+  app.use('/api/groups', groups);
 
   const port = process.env.PORT || 5000;
 

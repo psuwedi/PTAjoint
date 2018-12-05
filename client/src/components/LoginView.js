@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import AppNavbar from './AppNavbar';
 import Login from './Login';
 import AppFooter from './AppFooter';
-import {
-  getFromStorage,
-  setInStorage,
-} from '../utils/storage';
 
 class LoginView extends Component {
   constructor(props) {

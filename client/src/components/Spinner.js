@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import spinner from '../assets/spinner.gif';
 
 
 class Spinner extends Component {
@@ -7,7 +8,12 @@ class Spinner extends Component {
 
         return(
             <div className="spinner">
-                <h1> Spinner</h1>
+               
+            <img
+                src={spinner}
+                alt="Loading..."
+                style={{ width: '200px', margin: ' 40px auto', display: 'block' }}
+            />
             </div>
         );
     }

@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import AppNavbar from './AppNavbar';
 import Register from './Register';
 import AppFooter from './AppFooter';
-import {
-  getFromStorage,
-  setInStorage,
-} from '../utils/storage';
 
 class RegisterView extends Component {
   constructor(props) {

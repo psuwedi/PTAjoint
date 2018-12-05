@@ -11,10 +11,7 @@ import {
   MDBCardBody
 } from 'mdbreact';
 
-import {
-  setInStorage,
-} from '../utils/storage';
-
+import { Redirect } from 'react-router';
 import axios from 'axios';
 
 class Signup extends Component {
@@ -25,11 +22,13 @@ class Signup extends Component {
     super(props);
 
     this.state = {
+        isloading: true,
         firstName:'',
         lastName: '',
         password:' ',
         confirmPassword:'',
-        email:''
+        email:'',
+        redirect: false
     }
 
     this.submitHandler = this.submitHandler.bind(this);
@@ -98,34 +97,17 @@ class Signup extends Component {
           password
         })
       .then(res => {
+
+        if(res.succes){
+          //user should be logged in and automatically redirected to home feed
+          // return log_user_in(email, password);
+
+          return < Redirect to='/home' ></Redirect>
+          console.log(res.data);
+        }
          
         console.log(res.data);
-      });
-
-
-      axios.post('http://localhost:5000/api/users/account/signin',{
-        email,
-        password
       })
-      .then(res => res.data)
-      .then(res => {
-        // console.log(this.state);
-        if (res.success) {
-            
-          setInStorage('the_main_app', { token: res.token, name: res.name, userId: res.userId  });
-          this.setState({
-            redirect: true,
-            signInError: res.message,
-            isLoading: false,
-            password: '',
-            email: '',
-            token: res.token,
-          });
-        } else {
-            alert("Login failed, try again")
-            return false;
-          }
-        });
       }
 
 
@@ -135,6 +117,14 @@ class Signup extends Component {
 
 
   render(){
+
+
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to='/home' />;
+    }
+    
   return (
     <MDBContainer className="pushDown justify-content-center" >
     <MDBRow>
