@@ -36,23 +36,6 @@ class Groups extends Component {
       return groupMembers.indexOf(userId) > -1;
     }
     
-    ComponentDidMount(){
-      const obj = getFromStorage('the_main_app');
-      if (obj && obj.userId) {
-        let { userId } = obj;
-
-        this.setState({
-          currentUserId: userId
-        })
-
-        console.log(userId);
-      }
-
-        
-
-    //  this.check_if_user_is_already_a_member(this.state.currentUserId, this.props.group.members);
-    }
-
     render(){
 
         return (
