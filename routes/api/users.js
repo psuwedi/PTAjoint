@@ -70,11 +70,13 @@ const UserSession = require('../../models/UserSession');
             return res.send({
               success: false,
               message: err
+
             });
           }
           return res.send({
             success: true,
-            message: 'Signed up'
+            message: 'Signed up',
+            user: newUser
           });
         });
       });
@@ -250,5 +252,28 @@ const UserSession = require('../../models/UserSession');
         User.findById(req.params.id)
             .then( user => res.json(user))
       }); // end of get user endpoint
+
+
+      //@route G
+
+      router.get('/register/:userId/redirect',(req, res) =>{
+
+        const userSession = new UserSession();
+        userSession.userId = req.params.userId;
+        userSession.save((err, session) => {
+          if (err) {
+            console.log(err);
+            return res.send({
+              success: false,
+              message: 'Error: server error'
+            });
+        }
+        return res.send({
+          success: true,
+          token: session._id
+        });
+      }
+    )});
+
 
     module.exports = router;

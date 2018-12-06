@@ -13,6 +13,9 @@ import {
 
 import { Redirect } from 'react-router';
 import axios from 'axios';
+import {
+  setInStorage
+} from '../utils/storage';
 
 class Signup extends Component {
 
@@ -22,13 +25,15 @@ class Signup extends Component {
     super(props);
 
     this.state = {
-        isloading: true,
+        isloading: false,
         firstName:'',
         lastName: '',
         password:' ',
         confirmPassword:'',
         email:'',
-        redirect: false
+        redirect: false,
+        token:'',
+        history: this.props.history
     }
 
     this.submitHandler = this.submitHandler.bind(this);
@@ -99,16 +104,12 @@ class Signup extends Component {
       .then(res => {
 
         if(res.succes){
-          //user should be logged in and automatically redirected to home feed
-          // return log_user_in(email, password);
-
-          return < Redirect to='/home' ></Redirect>
-          console.log(res.data);
+          setInStorage('the_main_app', { name: res.user.firstName+' '+res.user.lastName, userId: res.user._id  });
+          this.state.history.push('/home')
+              }})
         }
          
-        console.log(res.data);
-      })
-      }
+
 
 
     

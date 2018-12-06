@@ -41,7 +41,7 @@ class Groups extends Component {
         return (
             <MDBContainer>
               <MDBRow>
-                <MDBCol md="6" className="mb-4">
+                <MDBCol md="8"  className="mb-4 md-offset-2">
                   <MDBCard color={this.get_random_color()} text="white" className="text-center mb-4">
                   <MDBCardHeader>
                       {this.props.group.name}
@@ -51,7 +51,7 @@ class Groups extends Component {
                       <p>
                       <Button color='primary'>{
                         (this.check_if_user_is_already_a_member(getFromStorage('the_main_app').userId, this.props.group.members))?
-                        (<span><MDBIcon icon="folder-open" /> View posts</span> ):("Join Group")
+                        (<span><MDBIcon className="mr-2"  icon="folder-open" /> View posts</span> ):(<span> <MDBIcon className="mr-2" icon=" fa-angle-double-right" />Join Group</span>)
                       }</Button>
                       </p>
                     </MDBCardBody>

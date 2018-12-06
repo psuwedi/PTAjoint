@@ -15,8 +15,8 @@ import axios from 'axios';
           redirect: true,
           signInError: res.message,
           isLoading: false,
-          password: '',
-          email: '',
+          password,
+          email,
           token: res.token,
         });
       } else {

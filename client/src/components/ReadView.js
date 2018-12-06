@@ -8,6 +8,7 @@ import 'mdbreact/dist/css/mdb.css';
 import '../App.css';
 import { Button, Card, CardBody, CardTitle, CardText, Input } from 'mdbreact';
 import axios from 'axios';
+import TimeAgo from '../components/TimeAgo';
 
 
 
@@ -18,7 +19,8 @@ class ReadView extends Component {
         this.state = {
           post: {},
           postId: this.props.match.params.id,
-          hideUpdateView: true
+          hideUpdateView: true,
+          name: ''
         };
 
       
@@ -28,6 +30,9 @@ class ReadView extends Component {
         this.updatePost = this.updatePost.bind(this);
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.loadPost = this.loadPost.bind(this);
+        this.get_user_name = this.get_user_name.bind(this);
+        this.format_date_created = this.format_date_created.bind(this);
         
       }
 
@@ -116,16 +121,43 @@ class ReadView extends Component {
             }
         );
         }
-    
-      componentDidMount() {
-        axios.get('http://localhost:5000/api/posts/'+this.state.postId)
-          .then(res => {
-            this.setState({ post: res.data });
-            console.log(this.state.post);
-          });
 
-        // this.setState({ post: this.props.post });
-       
+        loadPost(){
+          axios.get('http://localhost:5000/api/posts/'+this.state.postId)
+          .then(res => {
+            this.setState({ post: res.data }, () => {
+              console.log(this.get_user_name(this.state.post.userId));
+            });
+            // console.log(this.state);
+          });
+        }
+
+        //get users full name
+
+        get_user_name(userId){
+          axios.get('http://localhost:5000/api/users/'+userId)
+          .then(res => {
+            this.setState({ name: res.data.firstName+ ' '+res.data.lastName});
+            // return this.state.name;
+          });
+        }
+
+        //formart the createdAt date for post
+
+        format_date_created(createdAt_date){
+          let date = new Date(createdAt_date);
+          let human_readable_month = parseInt(date.getMonth()) + 1;
+          return date.
+          getFullYear()+'-'+
+          human_readable_month+'-'+
+          date.getDate();
+        }
+      
+        componentDidMount() {
+        
+        this.loadPost();
+        
+        setTimeout(this.get_user_name(this.state.post.userId));
         
       }
   render() {
@@ -144,9 +176,9 @@ class ReadView extends Component {
         <CardBody>
             <CardTitle><small>{this.state.post.title}</small></CardTitle>
             <CardText>
-              <p><small>By John Doe</small></p>
+              <p><small>By {(this.state.name.length>0)?(this.state.name):("Loading...")}</small></p>
               <p>{this.state.post.content}</p>
-              <p><small>Posted 5 seconds</small></p>
+              <p><small>Posted {(this.state.post.createdAt)?(this.format_date_created(this.state.post.createdAt)):("Loading...")} </small></p>
             </CardText>
            
         </CardBody>
