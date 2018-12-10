@@ -19,17 +19,28 @@ class CreatePost extends Component {
         this.state = {
             userId: '',
             title:'',
-            content:''
+            content:'',
+            hideCreateForm: false
         }
 
         this.submitHandler = this.submitHandler.bind(this);
         this.reloadPosts = this.reloadPosts.bind(this);
+        this.displayOrHideForm = this.displayOrHideForm.bind(this);
     }
 
     //push newly created post to the top 
 
     reloadPosts (){
         window.location.reload();
+    }
+
+    displayOrHideForm(){
+
+        const obj = getFromStorage('the_main_app');
+        if(!obj){
+            this.setState({hideCreateForm: true})
+        }
+        
     }
 
       submitHandler = (event) => {
@@ -67,6 +78,8 @@ class CreatePost extends Component {
           });
         }
 
+
+
         componentDidMount() {
             const obj = getFromStorage('the_main_app');
             if (obj && obj.userId) {
@@ -75,12 +88,14 @@ class CreatePost extends Component {
                 userId
               })
             }
+
+            this.displayOrHideForm();
           }
       
 
   render() {
     return (
-      <div className="create">
+      <div className={!this.state.hideCreateForm ? 'd-none': null}>
 
       <div className="card jumbotron-fluid pushDown">
         <div className="container">
