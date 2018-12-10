@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import Post from './Post';
 import Spinner from './Spinner';
-class PostList extends Component {
+
+class GroupPosts extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
           isLoading: false,
+          groupId: this.props.groupId,
           posts: []
         };
 
@@ -18,7 +20,7 @@ class PostList extends Component {
         this.setState({
           isLoading: true
         });
-        axios.get('http://localhost:5000/api/posts')
+        axios.get('http://localhost:5000/api/group/'+this.state.groupId+'/posts')
         .then(res => {
           this.setState({ posts: res.data, isLoading: false });
           console.log(res.data);
@@ -35,8 +37,6 @@ class PostList extends Component {
 
     render() {
 
-      //show loading animation if page is still loading
-      
       const { isLoading } = this.state;
    
         if(isLoading){
@@ -53,7 +53,7 @@ class PostList extends Component {
     }
   }
   
-  export default PostList;
+  export default GroupPosts;
 
 
 

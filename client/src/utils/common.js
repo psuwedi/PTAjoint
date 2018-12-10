@@ -1,7 +1,8 @@
 import { setInStorage, getFromStorage } from './storage';
 import axios from 'axios';
 
- export function log_user_in (email, password) {  axios.post('http://localhost:5000/api/users/account/signin',{
+ export function log_user_in (email, password) {  
+   axios.post('http://localhost:5000/api/users/account/signin',{
       email,
       password
     })
@@ -11,14 +12,7 @@ import axios from 'axios';
       if (res.success) {
           
         setInStorage('the_main_app', { token: res.token, name: res.name, userId: res.userId  });
-        this.setState({
-          redirect: true,
-          signInError: res.message,
-          isLoading: false,
-          password,
-          email,
-          token: res.token,
-        });
+          console.log("From log_user_in: "+res);   
       } else {
           alert("Login failed, try again")
           return false;
@@ -36,5 +30,14 @@ import axios from 'axios';
 
     }
   }
+
+  export function requireAuth(nextState, replace) {
+    if (!getFromStorage("the_main_app").token) {
+    replace({
+    pathname: `/accounts/login`,
+    state: { nextPathname: nextState.location.pathname }
+    })
+    }
+   }
 
 

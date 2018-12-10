@@ -29,6 +29,9 @@ class Groups extends Component {
       }
 
       componentDidMount() {
+
+        //get the user's name from local storage
+
         const obj = getFromStorage('the_main_app');
         if (obj && obj.name) {
           const { name } = obj;
@@ -37,6 +40,8 @@ class Groups extends Component {
           })
         }
 
+        //load all the required data
+        
         this.loadData()
         
     }

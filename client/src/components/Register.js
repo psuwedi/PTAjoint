@@ -12,10 +12,13 @@ import {
 } from 'mdbreact';
 
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import {
   setInStorage
 } from '../utils/storage';
+
+import { log_user_in} from '../utils/common';
 
 class Signup extends Component {
 
@@ -25,7 +28,7 @@ class Signup extends Component {
     super(props);
 
     this.state = {
-        isloading: false,
+        isLoading: false,
         firstName:'',
         lastName: '',
         password:' ',
@@ -37,19 +40,28 @@ class Signup extends Component {
     }
 
     this.submitHandler = this.submitHandler.bind(this);
-    // this.logNewUserIn = this.logNewUserIn.bind(this);
-    // this.reloadPosts = this.reloadPosts.bind(this);
+    this.redirectToLogin = this.redirectToLogin.bind(this);
+    this.onTextboxChangeEmail = this.onTextboxChangeEmail.bind(this);
+    this.onTextboxChangeFirstName = this.onTextboxChangeFirstName.bind(this);
+    this.onTextboxChangeLastName = this.onTextboxChangeLastName.bind(this);
+    this.onTextboxChangePassword = this.onTextboxChangePassword.bind(this);
+    this.onTextboxChangeConfirmPassword = this.onTextboxChangeConfirmPassword.bind(this);
+
+   
 }
 
 
-  submitHandler = (event) => {
-    event.preventDefault();
 
-    let firstName = event.target.firstName.value;
-    let lastName = event.target.lastName.value;
-    let email = event.target.email.value;
-    let password = event.target.password.value;
-    let confirmPassword = event.target.confirmPassword.value;
+  submitHandler(event){
+    // event.preventDefault();
+
+    let {
+      firstName,
+      lastName,
+      email,
+      password,
+      confirmPassword
+    } = this.state;
 
 
     if (firstName.trim()==null || firstName.trim()==""|| firstName===" ") {
@@ -78,38 +90,75 @@ class Signup extends Component {
       alert("Passwords do not match!");
       return false;
      }
-
-    
-
-  //   this.setState({ 
-  //     firstName: firstName,
-  //     lastName: lastName,
-  //     email: email,
-  //     password: password,
-  //     confirmPassword: confirmPassword
-  // });
-
-  // return console.log('state: '+this.state.length);
     
 
     // Persist newly created user
 
-    axios
+    this.setState({
+      isLoading: true,
+    });
+
+     axios
     .post('http://localhost:5000/api/users/account/signup', {
           firstName,
           lastName,
           email,
           password
         })
+      .then(res => res.data)
       .then(res => {
 
-        if(res.succes){
+        if(res.user){
           setInStorage('the_main_app', { name: res.user.firstName+' '+res.user.lastName, userId: res.user._id  });
-          this.state.history.push('/home')
-              }})
+          this.setState({ 
+            redirect: true,
+            email,
+            password
+          })
+          this.setState({ isLoading: false})
+           console.log(this.state);
+          
+              }
+            })
         }
          
 
+        async redirectToLogin(){
+
+          await this.submitHandler();
+          log_user_in(this.state.email, this.state.password);
+        }
+
+        onTextboxChangeFirstName(event) {
+          this.setState({
+            firstName: event.target.value,
+          });
+        }
+
+        onTextboxChangeLastName(event) {
+          this.setState({
+            lastName: event.target.value,
+          });
+        }
+
+        onTextboxChangePassword(event) {
+          this.setState({
+            password: event.target.value,
+          });
+        }
+
+        onTextboxChangeConfirmPassword(event) {
+          this.setState({
+           confirmPassword : event.target.value,
+          });
+        }
+        
+
+        onTextboxChangeEmail(event) {
+          this.setState({
+            email: event.target.value,
+          });
+        }
 
 
     
@@ -128,82 +177,95 @@ class Signup extends Component {
     
   return (
     <MDBContainer className="pushDown justify-content-center" >
-    <MDBRow>
-      <MDBCol md="8" className="offset-md-2">
-        <MDBCard>
-          <MDBCardHeader className="form-header deep-blue-gradient rounded">
-              <h3 className="my-3 text-center">
-                <MDBIcon icon="user" /> Sign Up
-              </h3>
-          </MDBCardHeader>
-          <MDBCardBody className="mx-4 mt-4">
-          <form onSubmit={this.submitHandler} noValidate>
-            <div className="grey-text">
-              <MDBInput
-                label="First name"
-                icon="user"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
+      <MDBRow>
+        <MDBCol md="8" className="offset-md-2">
+          <MDBCard>
+            <MDBCardHeader className="form-header deep-blue-gradient rounded">
+                <h3 className="my-3 text-center">
+                  <MDBIcon icon="user" /> Sign Up
+                </h3>
+            </MDBCardHeader>
+            <MDBCardBody className="mx-4 mt-4">
+            <MDBInput 
+                label="First Name" 
+                group 
+                type="text" 
+                required 
+                validate 
+                icon="user" 
                 name="firstName"
-              />
-              <MDBInput
-                label="Last name"
-                icon="user"
-                group
-                type="text"
-                validate
-                error="wrong"
-                success="right"
+                onChange={this.onTextboxChangeFirstName} />
+              <MDBInput 
+                label="Last Name" 
+                group 
+                type="text" 
+                required 
+                validate 
+                icon="user" 
                 name="lastName"
-              />
-              <MDBInput
-                label="Email"
-                icon="envelope"
-                group
-                type="email"
-                validate
-                error="wrong"
-                success="right"
+                onChange={this.onTextboxChangeLastName} />
+              <MDBInput 
+                label="Your email" 
+                group 
+                type="email" 
+                required 
+                validate 
+                icon="envelope" 
                 name="email"
-              />
+                onChange={this.onTextboxChangeEmail} />
               <MDBInput
-                label="Password"
-                icon="lock"
+                label="Your password"
                 group
                 type="password"
                 name="password"
                 validate
+                containerClass="mb-0"
+                icon="lock"
+                onChange={this.onTextboxChangePassword}
               />
               <MDBInput
-                label="Confirm password"
-                icon="exclamation-triangle lock"
+                label="Your password"
                 group
                 type="password"
+                name="password"
                 validate
-                error="wrong"
-                success="right"
-                name="confirmPassword"
+                containerClass="mb-0"
+                icon="lock"
+                onChange={this.onTextboxChangeConfirmPassword}
               />
-            </div>
-            <div className="text-center">
-             
-                <MDBBtn color="primary"  className="btn-block changeColor " type="submit">Register</MDBBtn>
-           
-            </div>
-            <p className="font-small mt-4 grey-text d-flex justify-content-center">
-                Already have an account?
+              <p className="font-small grey-text d-flex justify-content-end">
+                Forgot
                 <a
                   href="#!"
                   className="dark-grey-text font-weight-bold ml-1"
                 >
-                  Login
+                  Password?
                 </a>
               </p>
-          </form>
-          </MDBCardBody>
+              <div className="text-center mb-4 mt-5">
+                <MDBBtn
+                  color="primary"
+                  type="button"
+                  className="btn-block z-depth-2"
+                  onClick={this.submitHandler}
+                >
+                {
+                    (this.state.isLoading) ? (
+                        <span>Loading...</span>
+                    ) : (<span>Sign Up</span>)
+                }
+                </MDBBtn>
+              </div>
+              <p className="font-small grey-text d-flex justify-content-center">
+                Already have an account?
+                <Link
+                  to="/accounts/login"
+                  className="dark-grey-text font-weight-bold ml-1"
+                >
+                  Login
+                </Link>
+              </p>
+            </MDBCardBody>
           </MDBCard>
         </MDBCol>
       </MDBRow>

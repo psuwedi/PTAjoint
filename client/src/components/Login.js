@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 import { 
     MDBContainer, 
     MDBRow, 
@@ -184,12 +185,12 @@ render(){
               </div>
               <p className="font-small grey-text d-flex justify-content-center">
                 Don't have an account?
-                <a
-                  href="#!"
+                <Link
+                  to="/accounts/register"
                   className="dark-grey-text font-weight-bold ml-1"
                 >
                   Sign up
-                </a>
+                </Link>
               </p>
             </MDBCardBody>
           </MDBCard>

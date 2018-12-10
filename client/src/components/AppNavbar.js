@@ -14,6 +14,7 @@ import { getFromStorage, clearStorage } from '../utils/storage';
 import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 
@@ -99,12 +100,15 @@ class AppNavbar extends Component {
                                 <div>
                                     <DropdownToggle nav caret>{this.props.name}</DropdownToggle>
                                     <DropdownMenu>
-                                        <DropdownItem href="#"> 
-                                            <a href="/accounts/login" onClick={ this.logout}>Logout</a>
+                                        <DropdownItem> 
+                                            <Link to="/accounts/login" onClick={ this.logout && <Redirect to="/accounts/login" />}>Logout</Link>
                                         </DropdownItem>
-                                        <DropdownItem href="#">Join Group</DropdownItem>
-                                        <DropdownItem href="#">Settngs</DropdownItem>
-                                        <DropdownItem href="#">Profile</DropdownItem>
+                                        <DropdownItem>
+                                        <Link to="/groups" onClick={ <Redirect to="/groups" />}>Groups</Link>
+                                        </DropdownItem>
+                                        <DropdownItem>
+                                <Link to="/" onClick={ <Redirect to="/" />}>Profile</Link>
+                                        </DropdownItem>
                                     </DropdownMenu>
                                 </div>
                                 ) : (

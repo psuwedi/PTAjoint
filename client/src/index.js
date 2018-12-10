@@ -9,6 +9,7 @@ import ReadView from './components/ReadView';
 import RegisterView from './components/RegisterView';
 import LoginView from './components/LoginView';
 import Groups from './components/Groups';
+import GroupPostsReadView from './components/GroupPostsReadView';
 
 
 
@@ -18,10 +19,10 @@ ReactDOM.render(
       <div>
         <Route exact path='/home' component={App} />
         <Route exact path='/' component={App} />
+        <Route path='/gposts' component={GroupPostsReadView} />
         <Route path='/announcements' component={App} />
-        <Route path='/check' component={RegisterView} />
-        <Route path='/groups' component={Groups} />
-        <Route path='/accounts/signup' component={Home} />
+        <Route path='/groups' component={Groups} />        
+        <Route path='/accounts/register' component={RegisterView} />
         <Route path='/accounts/login' component={LoginView} />
         <Route path='/posts/:id' component={ReadView} />
       </div>
