@@ -16,6 +16,7 @@ import {
     import {
         getFromStorage,
         setInStorage,
+        clearStorage,
       } from '../utils/storage';
 
 class Login extends Component {
@@ -64,6 +65,8 @@ class Login extends Component {
                 isLoading: false,
               });
             }
+
+            clearStorage();
           }
 
           onTextboxChangeEmail(event) {

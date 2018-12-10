@@ -37,6 +37,7 @@ class CreatePost extends Component {
     displayOrHideForm(){
 
         const obj = getFromStorage('the_main_app');
+
         if(!obj){
             this.setState({hideCreateForm: true})
         }
@@ -95,7 +96,7 @@ class CreatePost extends Component {
 
   render() {
     return (
-      <div className={!this.state.hideCreateForm ? 'd-none': null}>
+      <div className={this.state.hideCreateForm ? 'd-none': null}>
 
       <div className="card jumbotron-fluid pushDown">
         <div className="container">

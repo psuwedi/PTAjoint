@@ -60,7 +60,7 @@ class AppNavbar extends Component {
                 //clear storage & destory current session
                 clearStorage();
                 
-                this.redirectToLogin();
+                // this.redirectToLogin();
               } else {
                 this.setState({
                   isLoading: false,
@@ -101,13 +101,13 @@ class AppNavbar extends Component {
                                     <DropdownToggle nav caret>{this.props.name}</DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem> 
-                                            <Link to="/accounts/login" onClick={ this.logout && <Redirect to="/accounts/login" />}>Logout</Link>
+                                        <Link to="/accounts/login" onClick={ <Redirect to="/accounts/login" /> }>Logout</Link>
                                         </DropdownItem>
                                         <DropdownItem>
-                                        <Link to="/groups" onClick={ <Redirect to="/groups" />}>Groups</Link>
+                                        <Link to="/groups" onClick={<Redirect to="/groups" /> }>Groups</Link>
                                         </DropdownItem>
                                         <DropdownItem>
-                                <Link to="/" onClick={ <Redirect to="/" />}>Profile</Link>
+                                        <Link to="/" onClick={ <Redirect to="/" />}>Profile</Link>
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </div>
