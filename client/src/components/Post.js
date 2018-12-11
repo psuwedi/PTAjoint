@@ -14,12 +14,14 @@ export default class Post extends Component {
         super(props);
         this.state = {
           user: {},
-          post: {}
+          post: {},
+          tags: []
         };
 
         // Slice post if it's too long
         this.slicePost = this.slicePost.bind(this);
         this.getUser = this.getUser.bind(this);
+        this.getTags = this.getTags.bind(this);
       }
 
       
@@ -58,6 +60,26 @@ export default class Post extends Component {
           });
         }
 
+        getTags(){
+
+            const { tags } = this.props.post;
+
+            if(tags && tags.length>0){
+              tags.map((tag, i) => {
+
+                    axios.get('http://localhost:5000/api/groups/'+tag)
+                    .then(res => {
+                      this.setState({ tags: [ ...this.state.tags, res.data.name] });
+                      console.log('Tags: '+this.state.tags);
+                    })
+                    .catch(err =>{
+                        console.log('Error getting tag: '+err)
+                    });
+                })
+                
+            }
+        }
+
          
 
       
@@ -70,6 +92,8 @@ export default class Post extends Component {
             this.slicePost();
             
             this.getUser();
+
+            this.getTags();
             
   
       }
@@ -111,9 +135,17 @@ export default class Post extends Component {
                             </div>
                             <div className="blog-tags">
                                 <ul>
-                                    <li><a href="#">Mathematics</a></li>
-                                    <li><a href="#">Tutorial</a></li>
-                                    <li><a href="#">Some other tag</a></li>
+                                {
+                                 (this.state.tags.length>0)?(   
+                                     this.state.tags.map((tag, i) =>
+                                        <li><a href="#">{tag}</a></li>
+                                        )
+                                ):(
+                                        <li><a href="#">No tags</a></li>
+                                    )
+                                }
+
+                                  
                                 </ul>
                             </div>
                         </div>

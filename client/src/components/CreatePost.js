@@ -78,8 +78,6 @@ class CreatePost extends Component {
         
 
         // Save post to DB
-        
-
         axios
         .post('http://localhost:5000/api/posts/', {
                 title,
@@ -135,16 +133,15 @@ class CreatePost extends Component {
                 <Input type="textarea" label="Content"  name="content"/>
                 
                 <div className="selectGroup">
-                <FormInline>
-                
+                <FormInline className="panel">
                 {this.state.groups.map((group, i) =>
-                    //   <Post post = {post} key={i} timestamp={new Date(post.createdAt)}></Post>
+                    
                     <Input label={group.name} onChange={this.handleTagsChange} type="checkbox" id={group._id} key = {i}/>
                 )}
                 </FormInline>
                 </div>
                 
-                <div className="col-md-8">
+                <div className="col-md-8 offset-md-4">
                     <Button color="success" className="spaceBelow changeColor" type="submit">Create Post</Button>
                 </div>
             </form>
