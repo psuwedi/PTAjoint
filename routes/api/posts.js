@@ -40,6 +40,7 @@ router.post('/', (req, res) => {
     const newPost = new Post({
         title: req.body.title,
         content: req.body.content,
+        tags: req.body.tags,
         userId: req.body.userId
     });
 

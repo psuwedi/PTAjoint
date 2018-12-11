@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Input } from 'mdbreact';
+import { Button, Input, FormInline } from 'mdbreact';
 import Spinner from './Spinner';
 import 'font-awesome/css/font-awesome.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
@@ -20,18 +20,30 @@ class CreatePost extends Component {
             userId: '',
             title:'',
             content:'',
-            hideCreateForm: false
+            hideCreateForm: false,
+            groups: [],
+            tags: []
         }
 
         this.submitHandler = this.submitHandler.bind(this);
         this.reloadPosts = this.reloadPosts.bind(this);
         this.displayOrHideForm = this.displayOrHideForm.bind(this);
+        this.handleTagsChange = this.handleTagsChange.bind(this);
+        
     }
 
     //push newly created post to the top 
 
     reloadPosts (){
         window.location.reload();
+    }
+
+    getGroups(){
+        axios
+        .get('http://localhost:5000/api/groups/')
+        .then(res =>{
+            this.setState({groups: res.data});
+        })
     }
 
     displayOrHideForm(){
@@ -60,6 +72,7 @@ class CreatePost extends Component {
             return false;
         }
 
+      
    
         this.setState({ title, content})
         
@@ -71,6 +84,7 @@ class CreatePost extends Component {
         .post('http://localhost:5000/api/posts/', {
                 title,
                 content,
+                tags: this.state.tags,
                 userId: this.state.userId
             })
           .then(res => {
@@ -78,8 +92,17 @@ class CreatePost extends Component {
             console.log(res.data);
           });
         }
+        handleTagsChange(event) {
+            const target = event.target;
+            const value = target.type === 'checkbox' ? target.checked : target.value;
+            if(value){
+            const tag = target.id;
+            let currentTags = [...this.state.tags, tag];
+            this.setState({ tags: currentTags })
+            }
 
-
+            console.log(this.state);
+        }
 
         componentDidMount() {
             const obj = getFromStorage('the_main_app');
@@ -91,6 +114,7 @@ class CreatePost extends Component {
             }
 
             this.displayOrHideForm();
+            this.getGroups();
           }
       
 
@@ -109,6 +133,17 @@ class CreatePost extends Component {
 
                 {/* Post content */}
                 <Input type="textarea" label="Content"  name="content"/>
+                
+                <div className="selectGroup">
+                <FormInline>
+                
+                {this.state.groups.map((group, i) =>
+                    //   <Post post = {post} key={i} timestamp={new Date(post.createdAt)}></Post>
+                    <Input label={group.name} onChange={this.handleTagsChange} type="checkbox" id={group._id} key = {i}/>
+                )}
+                </FormInline>
+                </div>
+                
                 <div className="col-md-8">
                     <Button color="success" className="spaceBelow changeColor" type="submit">Create Post</Button>
                 </div>

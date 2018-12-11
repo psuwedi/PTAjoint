@@ -9,6 +9,7 @@ import '../App.css';
 import { Button, Card, CardBody, CardTitle, CardText, Input } from 'mdbreact';
 import axios from 'axios';
 import TimeAgo from '../components/TimeAgo';
+import { getFromStorage } from '../utils/storage';
 
 
 
@@ -20,7 +21,8 @@ class ReadView extends Component {
           post: {},
           postId: this.props.match.params.id,
           hideUpdateView: true,
-          name: ''
+          name: '',
+          author: ''
         };
 
       
@@ -31,7 +33,7 @@ class ReadView extends Component {
         this.handleContentChange = this.handleContentChange.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.loadPost = this.loadPost.bind(this);
-        this.get_user_name = this.get_user_name.bind(this);
+        this.get_author_name = this.get_author_name.bind(this);
         this.format_date_created = this.format_date_created.bind(this);
         
       }
@@ -126,7 +128,7 @@ class ReadView extends Component {
           axios.get('http://localhost:5000/api/posts/'+this.state.postId)
           .then(res => {
             this.setState({ post: res.data }, () => {
-              console.log(this.get_user_name(this.state.post.userId));
+              console.log(this.get_author_name(this.state.post.userId));
             });
             // console.log(this.state);
           });
@@ -134,10 +136,10 @@ class ReadView extends Component {
 
         //get users full name
 
-        get_user_name(userId){
+        get_author_name(userId){
           axios.get('http://localhost:5000/api/users/'+userId)
           .then(res => {
-            this.setState({ name: res.data.firstName+ ' '+res.data.lastName});
+            this.setState({ author: res.data.firstName+ ' '+res.data.lastName});
             // return this.state.name;
           });
         }
@@ -154,10 +156,16 @@ class ReadView extends Component {
         }
       
         componentDidMount() {
-        
+          const obj = getFromStorage('the_main_app');
+          if (obj && obj.name) {
+            const { name } = obj;
+            this.setState({
+              name,
+            })
+          }
         this.loadPost();
         
-        setTimeout(this.get_user_name(this.state.post.userId));
+        setTimeout(this.get_author_name(this.state.post.userId));
         
       }
   render() {
@@ -165,7 +173,7 @@ class ReadView extends Component {
       <div className="App">
       <div className="container">
         <div className="pushDown">
-          <AppNavbar></AppNavbar>
+          <AppNavbar name={(this.state.name.length>0)?(this.state.name):('')}></AppNavbar>
        </div>
        
        <div className={!this.state.hideUpdateView ? 'd-none': null}>
@@ -176,7 +184,7 @@ class ReadView extends Component {
         <CardBody>
             <CardTitle><small>{this.state.post.title}</small></CardTitle>
             <CardText>
-              <p><small>By {(this.state.name.length>0)?(this.state.name):("Loading...")}</small></p>
+              <p><small>By {(this.state.author.length>0)?(this.state.author):("Loading...")}</small></p>
               <p>{this.state.post.content}</p>
               <p><small>Posted {(this.state.post.createdAt)?(this.format_date_created(this.state.post.createdAt)):("Loading...")} </small></p>
             </CardText>
