@@ -19,7 +19,8 @@ class GroupPostsReadView extends Component {
     super(props);
 
     this.state = {
-      name: '',  
+      name: '', 
+      groupId: '' 
     };
   
   }
@@ -27,9 +28,10 @@ class GroupPostsReadView extends Component {
   componentDidMount() {
     const obj = getFromStorage('the_main_app');
     if (obj && obj.name) {
-      const { name } = obj;
+      const { groupId, name } = obj;
       this.setState({
         name,
+        groupId
       })
     }
   }
@@ -41,7 +43,7 @@ class GroupPostsReadView extends Component {
           <AppNavbar name={(this.state.name.length>0)?(this.state.name):('')}></AppNavbar>
        </div>
         <CreatePost></CreatePost>
-        <GroupPosts></GroupPosts>
+        <GroupPosts groupId={this.state.groupId}></GroupPosts>
         <AppFooter></AppFooter>
       </div>
       </div>

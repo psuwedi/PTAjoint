@@ -38,25 +38,31 @@ export function getFromStorage(key) {
     localStorage.clear();
   }
 
-  export function SaveDataToLocalStorage(data, key)
+  export function SaveDataToLocalStorage(key, data)
   {
 
     if(!key){
       console.error('Error: key is missing, failed to update local storage');
     }
     try{
-      let localStorageData = [];
+     
+     
       // Parse the serialized data back into an aray of objects
-      localStorageData = JSON.parse(localStorage.getItem(key));
+      let localStorageData = JSON.parse(localStorage.getItem(key)) || [];
 
+      // let groupId = {"groupId": data}
 
+      // Push the new data onto the array
 
-      // Push the new data (whether it be an object or anything else) onto the array
-      localStorageData["groupId"] = data;
-      
-      console.log(localStorageData); 
+      localStorageData.groupId=data;  
+     
       // Re-serialize the array back into a string and store it in localStorage
-      localStorage.setItem(key, localStorageData);
+      
+      localStorage.setItem(key, JSON.stringify(localStorageData));
+
+      console.log("Local storageg data: "+localStorage.getItem(key)); 
+
+
     } catch (err) {
       console.log('Error: ' + err)
     }

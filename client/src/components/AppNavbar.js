@@ -85,7 +85,7 @@ class AppNavbar extends Component {
                     <Collapse isOpen = { this.state.collapse } navbar>
                         <NavbarNav left>
                           <NavItem active>
-                              <NavLink to="/">Home</NavLink>
+                              <NavLink to="/home">Home</NavLink>
                           </NavItem>
                           <NavItem>
                               <NavLink to="#">Calendar</NavLink>
@@ -114,7 +114,9 @@ class AppNavbar extends Component {
                                 ) : (
                                     <div>
                                         <NavItem>
-                                            <NavLink to="/accounts/login" onClick={ this.redirectToLogin}>Login</NavLink>
+                                            <NavLink to="/accounts/login" >
+                                                 Login
+                                            </NavLink>
                                         </NavItem>
                                     </div>
                                 )

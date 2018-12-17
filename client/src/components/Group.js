@@ -20,11 +20,12 @@ class Group extends Component {
         this.state = {
           isLoading: true,
           currentUserId:"",
+          redirect: false,
           groups: []
         };
         this.get_random_color = this.get_random_color.bind(this);
         this.check_if_user_is_already_a_member = this.check_if_user_is_already_a_member.bind(this);
-        this.view_group_posts = this.view_group_posts.bind(this)
+        this.view_group_posts = this.view_group_posts.bind(this, this.props.group._id)
       }
 
     get_random_color(){
@@ -40,24 +41,29 @@ class Group extends Component {
 
     view_group_posts(groupId){
 
-      SaveDataToLocalStorage(groupId, "the_main_app");
+      SaveDataToLocalStorage("the_main_app", groupId);
 
       if(getFromStorage("the_main_app")){
 
         let obj = getFromStorage("the_main_app");
 
         if(obj.groupId){
-          console.log(obj.groupId)
+          console.log("Viewing posts for: "+obj.groupId)
+          this.setState({redirect: true}); 
         } else {
           console.error("No group ID found!");
         }
       }
-      // return <Redirect to='/gposts' /> 
+      
 
     }
     
     render(){
-
+      
+        if(this.state.redirect){
+        return <Redirect to="/gposts" />;
+      }
+    
         return (
             <MDBContainer>
               <MDBRow>
@@ -69,9 +75,10 @@ class Group extends Component {
                     <MDBCardBody>
                       {this.props.group.description}
                       <p>
-                      <Button color='primary' >{
+                      <Button color='primary' 
+                        onClick={this.view_group_posts}>{
                         (this.check_if_user_is_already_a_member(getFromStorage('the_main_app').userId, this.props.group.members))?
-                        (<span><MDBIcon className="mr-2"  icon="folder-open"  /> View posts</span> ):(<span> <MDBIcon className="mr-2" icon=" fa-angle-double-right" />Join Group</span>)
+                        (<span> <MDBIcon className="mr-2"  icon="folder-open"  /> View posts</span> ):(<span> <MDBIcon className="mr-2" icon=" fa-angle-double-right" />Join Group</span>)
                       }</Button>
                       </p>
                     </MDBCardBody>

@@ -84,7 +84,19 @@ const Group = require('../../models/Group');
 
         router.get('/:id/posts', (req, res) => {
             Group.findById(req.params.id)
-                .then( group => res.json(group.posts))
+                .then( group => {
+                  if(group.posts){
+                    return res.send({
+                      success: true,
+                      posts: group.posts
+                    });
+                  } else{
+                    return res.send({
+                      success: false,
+                      message: "Something went wrong, please try again."
+                    });
+                  }
+                })
           }); // end of get group endpoint 
 
 
