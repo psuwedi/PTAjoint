@@ -52,6 +52,21 @@ body {
     top: 8px;
     width: 32px;
   }
+
+  .blog-author h3::before, .blog-author--with-hat h3::before {
+    background: url("./assets/avatar-teacher.png");
+    background-size: cover;
+    border-radius: 50%;
+    content: " ";
+    display: inline-block;
+    height: 32px;
+    margin-right: 0.5rem;
+    position: relative;
+    top: 8px;
+    width: 32px;
+  }
+
+
   .blog-author h3 {
     color: #fff;
     font-weight: 100;

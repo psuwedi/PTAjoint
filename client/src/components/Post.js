@@ -15,7 +15,8 @@ export default class Post extends Component {
         this.state = {
           user: {},
           post: {},
-          tags: []
+          tags: [],
+          userIsTeacher: false
         };
 
         // Slice post if it's too long
@@ -53,6 +54,9 @@ export default class Post extends Component {
           axios.get('http://localhost:5000/api/users/'+userId)
           .then(res => {
             this.setState({ user: res.data });
+            if(this.state.user.role === 1){
+                this.setState({userIsTeacher: true})
+            }
             console.log('User: '+this.state.user);
           })
           .catch(err =>{
@@ -116,7 +120,7 @@ export default class Post extends Component {
                     <div className="blog-container">
 
                         <div className="blog-header">
-                            <div className="blog-author--no-cover">
+                            <div className= { (this.state.userIsTeacher ? "blog-author--with-hat" : "blog-author--no-cover")} >
                                 {/* <h3>{this.state.user.firstName+' '+this.state.user.lastName}</h3> */}
                                 <h3>{ (this.state.user !== null ? this.state.user.firstName+" "+this.state.user.lastName : "John Doe")} </h3>
                             </div>

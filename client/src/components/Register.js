@@ -255,14 +255,14 @@ class Signup extends Component {
             </h5>
           <Input
             onClick={this.setUserRoleParent}
-            checked={this.state.userRole == 0 ? true : false}
+            checked={this.state.userRole === 0 ? true : false}
             label="Parent"
             type="radio"
             id="userRole"
           />
           <Input
             onClick={this.setUserRoleTeacher}
-            checked={this.state.userRole == 1 ? true : false}
+            checked={this.state.userRole === 1 ? true : false}
             label="Teacher"
             type="radio"
             id="userRole"
