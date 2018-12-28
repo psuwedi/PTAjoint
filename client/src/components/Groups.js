@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Group from './Group';
 import AppNavbar from './AppNavbar'
 import AppFooter from './AppFooter';
+import Spinner from './Spinner';
 import axios from 'axios';
 import '../App.css';
 import { getFromStorage } from '../utils/storage';
@@ -23,7 +24,7 @@ class Groups extends Component {
       loadData(){
         axios.get('http://localhost:5000/api/groups')
         .then(res => {
-          this.setState({ groups: res.data, isLoding: false });
+          this.setState({ groups: res.data, isLoading: false });
           console.log(this.state.groups);
         });
       }
@@ -47,6 +48,13 @@ class Groups extends Component {
     }
 
     render(){
+
+      {
+        if(this.state.isLoading){
+          return <Spinner />;
+        }
+      }
+     
 
         return (
             <div className="App">

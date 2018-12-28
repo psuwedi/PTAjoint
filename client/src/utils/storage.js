@@ -60,10 +60,15 @@ export function getFromStorage(key) {
       
       localStorage.setItem(key, JSON.stringify(localStorageData));
 
-      console.log("Local storageg data: "+localStorage.getItem(key)); 
+      console.log("Local storage data: "+localStorage.getItem(key)); 
 
 
     } catch (err) {
       console.log('Error: ' + err)
     }
+  }
+
+  export function saveGroupPosts(value){
+
+    localStorage.setItem('posts', value);
   }

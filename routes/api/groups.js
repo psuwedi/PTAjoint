@@ -5,6 +5,11 @@ const router = express.Router();
 const Group = require('../../models/Group');
 
 
+//Post model
+
+const Post = require('../../models/Post');
+
+
 
     /*
      * Create Group
@@ -83,20 +88,40 @@ const Group = require('../../models/Group');
      */
 
         router.get('/:id/posts', (req, res) => {
+
+            let groupIds = [];
+            let groupPosts = [];
+
             Group.findById(req.params.id)
                 .then( group => {
-                  if(group.posts){
-                    return res.send({
-                      success: true,
-                      posts: group.posts
+                  
+                  // if(group.posts.length>0){
+
+                  groupIds = group.posts;
+                  
+
+                  groupIds.forEach((postId, i) => {
+   
+                    Post.findById( postId, (err, post) => { 
+                    // console.log("Post to be pushed: "+ post);
+                    groupPosts.push(post); 
+                    
+                    console.log("Group posts after pushing new post: "+groupPosts.length);
+ 
                     });
-                  } else{
-                    return res.send({
-                      success: false,
-                      message: "Something went wrong, please try again."
-                    });
-                  }
+                  });
+                  
+                  return res.send({
+                    success: true,
+                    groupPosts,
+                    groupIds,
+                   
+                    
+                  });
+                
+                      
                 })
+
           }); // end of get group endpoint 
 
 

@@ -34,4 +34,4 @@ const GroupSchema = new Schema({
   });
 
 
-module.exports = Post = mongoose.model('group', GroupSchema);
+module.exports = Group = mongoose.model('group', GroupSchema);

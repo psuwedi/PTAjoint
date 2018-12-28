@@ -8,7 +8,8 @@ import {
   MDBCard, 
   MDBCardHeader,
   MDBIcon,
-  MDBCardBody
+  MDBCardBody,
+  Container, Input
 } from 'mdbreact';
 
 import { Redirect } from 'react-router';
@@ -34,6 +35,7 @@ class Signup extends Component {
         password:' ',
         confirmPassword:'',
         email:'',
+        userRole: 0,
         redirect: false,
         token:'',
         history: this.props.history
@@ -46,6 +48,8 @@ class Signup extends Component {
     this.onTextboxChangeLastName = this.onTextboxChangeLastName.bind(this);
     this.onTextboxChangePassword = this.onTextboxChangePassword.bind(this);
     this.onTextboxChangeConfirmPassword = this.onTextboxChangeConfirmPassword.bind(this);
+    this.setUserRoleParent = this.setUserRoleParent.bind(this);
+    this.setUserRoleTeacher = this.setUserRoleTeacher.bind(this);
 
    
 }
@@ -60,7 +64,8 @@ class Signup extends Component {
       lastName,
       email,
       password,
-      confirmPassword
+      confirmPassword,
+      userRole
     } = this.state;
 
 
@@ -103,7 +108,8 @@ class Signup extends Component {
           firstName,
           lastName,
           email,
-          password
+          password,
+          role: userRole
         })
       .then(res => res.data)
       .then(res => {
@@ -160,6 +166,13 @@ class Signup extends Component {
           });
         }
 
+        setUserRoleTeacher(){
+            this.setState({userRole: 1});
+        }
+
+        setUserRoleParent(){
+          this.setState({userRole: 0});
+      }
 
     
 
@@ -233,6 +246,31 @@ class Signup extends Component {
                 icon="lock"
                 onChange={this.onTextboxChangeConfirmPassword}
               />
+
+
+
+            <Container className="mt-5">
+            <h5 >
+              Sign Up As
+            </h5>
+          <Input
+            onClick={this.setUserRoleParent}
+            checked={this.state.userRole == 0 ? true : false}
+            label="Parent"
+            type="radio"
+            id="userRole"
+          />
+          <Input
+            onClick={this.setUserRoleTeacher}
+            checked={this.state.userRole == 1 ? true : false}
+            label="Teacher"
+            type="radio"
+            id="userRole"
+          />
+        </Container>
+
+
+
               <p className="font-small grey-text d-flex justify-content-end">
                 Forgot
                 <a

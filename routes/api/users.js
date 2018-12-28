@@ -18,7 +18,8 @@ const UserSession = require('../../models/UserSession');
       const {
         password,
         firstName,
-        lastName
+        lastName,
+        role
 
       } = body;
       let {
@@ -64,6 +65,7 @@ const UserSession = require('../../models/UserSession');
         newUser.email = email;
         newUser.firstName = firstName;
         newUser.lastName = lastName;
+        newUser.role = role;
         newUser.password = newUser.generateHash(password);
         newUser.save((err, user) => {
           if (err) {

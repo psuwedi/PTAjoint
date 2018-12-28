@@ -21,6 +21,9 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    role:{
+        type: Number,
+    },
     isDeleted: {
         type: Boolean,
         default: false

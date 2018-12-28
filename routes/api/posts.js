@@ -5,6 +5,8 @@ const router = express.Router();
 // Post model
 const Post = require('../../models/Post');
 
+const Group = require('../../models/Group');
+
 // @route GET api/posts
 // @desc Get all posts
 
@@ -37,15 +39,44 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
 
     // Create new post in memory
+
+    let tags = req.body.tags;
+
     const newPost = new Post({
         title: req.body.title,
         content: req.body.content,
-        tags: req.body.tags,
+        tags,
         userId: req.body.userId
     });
 
     // Save newly created post in the DB
-    newPost.save().then( post => res.json(post));
+    newPost.save().then( post => res.json(post)).catch(err => console.log("Error saving post, please try again"));
+    if(tags.length>0){
+
+        tags.forEach((tag, index) => {
+            Group.findById(tag)
+            .then( group => {
+              // if(group.posts){
+                
+                group.posts.push(newPost._id);
+                group.save()
+                .catch( err => console.log("Error saving tag"));
+
+                return res.send({
+                  success: true,
+                  message: "post tags successfully  saved",
+                  posts: newPost
+                });
+
+              // } else{
+                return res.send({
+                  success: false,
+                  message: "Something went wrong, please try again."
+                });
+              // }
+            }).catch( err => console.log("Error fecthing group data"))
+        });
+    }
 });
 
 // @route PUT api/post

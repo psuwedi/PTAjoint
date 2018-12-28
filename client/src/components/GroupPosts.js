@@ -1,8 +1,10 @@
+/* eslint-disable no-unused-expressions */
+
 import React, { Component } from 'react';
 import axios from 'axios';
 import Post from './Post';
 import Spinner from './Spinner';
-import { getFromStorage } from '../utils/storage';
+import { getFromStorage, saveGroupPosts } from '../utils/storage';
 
 class GroupPosts extends Component {
 
@@ -12,10 +14,12 @@ class GroupPosts extends Component {
           isLoading: false,
           groupId: "",
           errorLoadingData: false,
-          posts: []
+          posts: [],
+          postIds: [],
         };
 
         this.loadData = this.loadData.bind(this);
+        this.loadPosts = this.loadPosts.bind(this);
       }
 
       loadData(){
@@ -25,29 +29,53 @@ class GroupPosts extends Component {
         axios.get(`http://localhost:5000/api/groups/${getFromStorage("the_main_app").groupId}/posts`)
         .then(res => {
 
-          if(res.success){
-            this.setState({ posts: res.posts, isLoading: false });
-          } else if(res.state !==200) {
+          if(res.data.success){
+            this.setState({ postIds: res.data.posts, isLoading: false });
+
+          } else{
 
             this.setState({ errorLoadingData: true, isLoading: false});
           }
          
-          console.log(res.data);
+          // console.log(res.data);
         });
       }
+
+
+       loadPosts(){
+
+        const { postIds } = this.state;
+        let groupPosts = [];
+        
+        postIds.map((postId, i) => {
+          axios.get(`http://localhost:5000/api/posts/${postId}`)
+                .then(
+                  res => {
+                    groupPosts.push(res.data);
+                    this.setState({posts: this.state.posts.push(res.data) })
+                    console.log("Posts: "+this.state.posts)
+                  }
+
+                );      
+      });
+      saveGroupPosts(groupPosts);
+
+    }
     
       componentDidMount() {
 
-          this.loadData()
-          this.setState({groupId: this.props.groupId});
+          this.loadData(); 
+          this.loadPosts();
+          this.setState({groupId: getFromStorage("the_main_app").groupId});
           
       }
       
+
     
 
     render() {
 
-      const { isLoading } = this.state;
+      const { isLoading, posts } = this.state;
    
         if(isLoading){
           return <Spinner />
@@ -61,10 +89,12 @@ class GroupPosts extends Component {
                   <p className="text-center mt-4 mb-4 mr-4 ml-4">No posts in this group.</p>
                 </div>
               ):(
-                this.state.posts.map((post, i) =>
-                  <Post post = {post} key={i} timestamp={new Date(post.createdAt)}></Post>
-                )
-              )
+                     
+                      posts.map((post, i) =>{
+                       <Post post={post} key={i} timestamp={new Date(post.createdAt)}></Post>
+                      })
+                    
+                  )
 
               (this.state.errorLoadingData)?(
               <div className="jumbotron">

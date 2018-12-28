@@ -37,14 +37,14 @@ class PostList extends Component {
 
       //show loading animation if page is still loading
       
-      const { isLoading } = this.state;
+      const { isLoading, posts } = this.state;
    
         if(isLoading){
           return <Spinner />
         } else {
         return (
           <React.Fragment>	
-            {this.state.posts.map((post, i) =>
+            {posts.map((post, i) =>
               <Post post = {post} key={i} timestamp={new Date(post.createdAt)}></Post>
             )}
           </React.Fragment>
