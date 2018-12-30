@@ -165,4 +165,12 @@ body {
   .icon-star:hover, .icon-bubble:hover {
     fill: #ff4d4d;
   }
+
+  .icon-star-filled{
+    height: 24px;
+    margin-right: 0.5rem;
+    transition: 0.25s ease;
+    width: 24px;
+    fill: #ff4d4d;
+  }
   

@@ -20,10 +20,18 @@ class PostList extends Component {
         });
         axios.get('http://localhost:5000/api/posts')
         .then(res => {
+          res.data.map((post, i) => {
+            if(post.tags.includes("5c274dc9abeaa32ba09ce3ed")){
+              res.data.splice(i, 1);
+            }
+          })
+         
           this.setState({ posts: res.data, isLoading: false });
           console.log(res.data);
         });
       }
+
+
     
       componentDidMount() {
 
@@ -45,6 +53,7 @@ class PostList extends Component {
         return (
           <React.Fragment>	
             {posts.map((post, i) =>
+              
               <Post post = {post} key={i} timestamp={new Date(post.createdAt)}></Post>
             )}
           </React.Fragment>

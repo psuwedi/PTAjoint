@@ -79,6 +79,23 @@ router.post('/', (req, res) => {
     }
 });
 
+
+
+// @route PUT api/post
+// @desc Like post
+// @access Auth
+
+router.put('/:id/like',(req,res) => {
+  let updatedPost = req.body; 
+  Post.findOneAndUpdate(req.body.id, updatedPost, { new:true }, (err,post) => {
+    if(err){
+    return res.json({'success':false,'message':'Something went wrong','error':err});
+    }
+    // console.log(post);
+    return res.json({'success':true,'message':'Post updated successfully', post});
+  })
+});
+
 // @route PUT api/post
 // @desc Update post
 // @access public
