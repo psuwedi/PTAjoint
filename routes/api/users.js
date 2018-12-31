@@ -150,7 +150,7 @@ const UserSession = require('../../models/UserSession');
               });
             }
 
-            const{ firstName, lastName, _id} = user;
+            const{ firstName, lastName, _id, role} = user;
 
             let name = firstName+' '+lastName;
             let userId = _id;
@@ -159,6 +159,7 @@ const UserSession = require('../../models/UserSession');
               success: true,
               message: 'Valid sign in',
               name,
+              role,
               userId,
               token: session._id
             });

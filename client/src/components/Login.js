@@ -103,7 +103,7 @@ class Login extends Component {
         // console.log(this.state);
         if (res.success) {
             
-          setInStorage('the_main_app', { token: res.token, name: res.name, userId: res.userId  });
+          setInStorage('the_main_app', { token: res.token, name: res.name, userId: res.userId, role: res.role  });
           this.setState({
             redirect: true,
             signInError: res.message,

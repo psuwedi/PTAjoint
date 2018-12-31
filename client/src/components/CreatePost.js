@@ -39,9 +39,22 @@ class CreatePost extends Component {
     }
 
     getGroups(){
+
+       
+        const obj = getFromStorage('the_main_app');
         axios
         .get('http://localhost:5000/api/groups/')
         .then(res =>{
+
+            // Only allow admins to post announcements
+            if(obj.role !=2){
+                res.data.map((group, i) => {
+                    if(group._id === "5c274dc9abeaa32ba09ce3ed"){
+                        res.data.splice(i,1);
+                    }
+ 
+                })
+            }
             this.setState({groups: res.data});
         })
     }
