@@ -61,7 +61,7 @@ class Group extends Component {
     render(){
       
         if(this.state.redirect){
-        return <Redirect to="/gposts" />;
+        return <Redirect to="/group_posts" />;
       }
     
         return (

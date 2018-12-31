@@ -12,61 +12,58 @@ class GroupPosts extends Component {
         super(props);
         this.state = {
           isLoading: false,
-          groupId: "",
+          groupId: getFromStorage("the_main_app").groupId,
           errorLoadingData: false,
           posts: [],
           postIds: [],
         };
 
-        this.loadData = this.loadData.bind(this);
+        
         this.loadPosts = this.loadPosts.bind(this);
       }
 
-      loadData(){
-        this.setState({
-          isLoading: true
-        });
-        axios.get(`http://localhost:5000/api/groups/${getFromStorage("the_main_app").groupId}/posts`)
-        .then(res => {
-
-          if(res.data.success){
-            this.setState({ postIds: res.data.posts, isLoading: false });
-
-          } else{
-
-            this.setState({ errorLoadingData: true, isLoading: false});
-          }
-         
-          // console.log(res.data);
-        });
-      }
+      
 
 
        loadPosts(){
 
-        const { postIds } = this.state;
+        const { groupId } = this.state;
         let groupPosts = [];
-        
-        postIds.map((postId, i) => {
-          axios.get(`http://localhost:5000/api/posts/${postId}`)
+      
+          axios.get(`http://localhost:5000/api/posts/`)
                 .then(
                   res => {
-                    groupPosts.push(res.data);
-                    this.setState({posts: this.state.posts.push(res.data) })
-                    console.log("Posts: "+this.state.posts)
-                  }
+                    // res.data.map((post, i) => {
+                    //   if(!post.tags.indexOf(groupId)>-1){
+                    //    groupPosts.push(post);
+                    //   }
+                    // })
 
-                );      
-      });
-      saveGroupPosts(groupPosts);
+                  // console.log("Posts in group: "+groupPosts.length)
+                  this.setState({posts: res.data});
 
-    }
+                  console.log("Posts ib state: "+ this.state.posts)
+                  
+                  }); 
+
+                  // this.setState({posts: groupPosts })
+                  // console.log("Posts in group: "+res.data)
+
+                     
+      };
+      // saveGroupPosts(groupPosts);
+
+    
     
       componentDidMount() {
 
-          this.loadData(); 
-          this.loadPosts();
-          this.setState({groupId: getFromStorage("the_main_app").groupId});
+          // this.loadData(); 
+
+          // this.setState({groupId: getFromStorage("the_main_app").groupId});
+           setTimeout(this.loadPosts());
+
+          //  setTimeout(this.setState({posts: this.loadPosts}))
+           
           
       }
       
@@ -83,16 +80,17 @@ class GroupPosts extends Component {
         return (
           <React.Fragment>	
             {
-              (this.state.posts.length<1)?(
+              (posts.length<1)?(
                 <div className="jumbotron">
                   <h1 className="text-center">&#9785;</h1>
-                  <p className="text-center mt-4 mb-4 mr-4 ml-4">No posts in this group.</p>
+                  <p className="text-center mt-4 mb-4 mr-4 ml-4">No posts in this group - GP.</p>
                 </div>
               ):(
                      
-                      posts.map((post, i) =>{
+                posts.map((post, i) =>{
                        <Post post={post} key={i} timestamp={new Date(post.createdAt)}></Post>
                       })
+                    
                     
                   )
 

@@ -21,10 +21,18 @@ class PostList extends Component {
         axios.get('http://localhost:5000/api/posts')
         .then(res => {
           res.data.map((post, i) => {
-            
+
             //Remove announcements from the main post index
             if(post.tags.includes("5c274dc9abeaa32ba09ce3ed")){
               res.data.splice(i, 1);
+            }
+
+            //Check if required to display posts for a specific group
+
+            if(this.props.groupId){
+              if(!post.tags.includes(this.props.groupId)){
+                res.data.splice(i, 1);
+              }
             }
           })
          
