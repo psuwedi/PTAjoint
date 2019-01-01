@@ -48,9 +48,13 @@ class Announcemnets extends Component {
 
     getUser(){
 
-        let name = getFromStorage("the_main_app").name;
+        if(getFromStorage("the_main_app")){
+             const { name } = getFromStorage("the_main_app");
+             this.setState({name})
+        }
+        
 
-        this.setState({name})
+       
 
 
     }

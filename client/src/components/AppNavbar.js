@@ -78,20 +78,20 @@ class AppNavbar extends Component {
         return (
             <Router>
                 <Navbar color="indigo" dark expand="md" scrolling>
-                    <NavbarBrand href="/">
+                    <NavbarBrand href="/" onClick={ <Redirect to="/" /> }>
                         <strong>PTAjoint</strong>
                     </NavbarBrand>
                     { !this.state.isWideEnough && <NavbarToggler onClick = { this.onClick } />}
                     <Collapse isOpen = { this.state.collapse } navbar>
                         <NavbarNav left>
                           <NavItem active>
-                              <NavLink to="/home">Home</NavLink>
+                              <NavLink to="/home" onClick={ <Redirect to="/home" />} >Home</NavLink>
                           </NavItem>
                           <NavItem>
-                              <NavLink to="#">Calendar</NavLink>
+                              <NavLink to="/calendar" onClick={ <Redirect to="/calendar" />} >Calendar</NavLink>
                           </NavItem>
                           <NavItem>
-                              <NavLink to="#">Announcements</NavLink>
+                              <NavLink to="/announcements" onClick={ <Redirect to="/announcements" />} > Announcements</NavLink>
                           </NavItem>
                           <NavItem>
                             <Dropdown>
@@ -107,14 +107,14 @@ class AppNavbar extends Component {
                                         <Link to="/groups" onClick={<Redirect to="/groups" /> }>Groups</Link>
                                         </DropdownItem>
                                         <DropdownItem>
-                                        <Link to="/" onClick={ <Redirect to="/" />}>Profile</Link>
+                                        <Link to="/profile" onClick={ <Redirect to="/profile" />} > Profile</Link>
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </div>
                                 ) : (
                                     <div>
                                         <NavItem>
-                                            <NavLink to="/accounts/login" >
+                                            <NavLink to="/accounts/login"  onClick={ <Redirect to="/accounts/login" />}>
                                                  Login
                                             </NavLink>
                                         </NavItem>

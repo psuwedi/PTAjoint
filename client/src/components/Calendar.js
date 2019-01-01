@@ -12,27 +12,45 @@ class Calendar extends Component{
         super(props);
     
         this.state = {
-            name: getFromStorage("the_main_app").name,
+            name: '',
              events: [
         {
             start: '2018-11-22',
             end: '2018-11-22',
             eventClasses: 'optionalEvent',
-            title: 'test event',
+            title: 'Opening day',
             description: 'This is a test description of an event',
         },
         {
-            start: '2018-11-20',
-            end: '2018-11-20',
-            title: 'test event',
+            start: '2018-11-28',
+            end: '2018-11-28',
+            title: 'End of year exams',
             description: 'This is a test description of an event',
             data: 'you can add what ever random data you may want to use later',
         },
     ]
         };
+
+        this.getUser = this.getUser.bind(this);
       
       }
+
+
+    getUser(){
+
+        if(getFromStorage("the_main_app")){
+             const { name } = getFromStorage("the_main_app");
+             this.setState({name})
+        }
+
+    }
+
+    componentDidMount(){
+        this.getUser();
+    }
+    
    
+
     render(){
         return(
             <MDBContainer className="mb-4">

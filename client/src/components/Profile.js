@@ -17,10 +17,10 @@ class Profile extends Component{
 
 componentDidMount(){
 
-    if(this.props.user.role != 0 ){
-        this.setState({avatar: teacher_avatar});
-    } else {
+    if(this.props.user.role === 0 ){
         this.setState({avatar: parent_avatar});
+    } else {
+        this.setState({avatar: teacher_avatar});
     }
 }
 
@@ -41,10 +41,10 @@ componentDidMount(){
                     </div>
                     {/* edit form column */}
                     <div className="col-md-9 personal-info">
-                        <div className="alert alert-info alert-dismissable">
+                        <div className="alert alert-info col-lg-8 alert-dismissable">
                         <a className="panel-close close" data-dismiss="alert">×</a> 
-                        <i className="fa fa-coffee" />
-                        This is an <strong>.alert</strong>. Use this to show important messages to the user.
+                        <i className="fa fa-coffee mr-2"/>
+                        This is will be used this to show important messages to the user.
                         </div>
                         <h3>Personal info</h3>
                         <form className="form-horizontal" role="form">

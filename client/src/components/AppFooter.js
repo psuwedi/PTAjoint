@@ -1,6 +1,7 @@
 
 import React, { Component } from "react";
 import { Col, Container, Row, Footer } from "mdbreact";
+import { Redirect } from 'react-router';
 
 class AppFooter extends Component {
 render() {
@@ -39,10 +40,10 @@ return (
       <div className="row">
       <ul>
         <li className="list-unstyled">
-          <a href="#!">Login</a>
+          <a href="/accounts/login" onClick={ <Redirect to="/accounts/login" />} >Login</a>
         </li>
         <li className="list-unstyled">
-          <a href="#!">Register</a>
+          <a href="/accounts/register" onClick={ <Redirect to="/accounts/register" />}>Register</a>
         </li>
         <li className="list-unstyled">
           <a href="#!">About Us</a>
