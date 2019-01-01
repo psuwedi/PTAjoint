@@ -9,7 +9,7 @@ import ReadView from './components/ReadView';
 import RegisterView from './components/RegisterView';
 import LoginView from './components/LoginView';
 import Groups from './components/Groups';
-import GroupPostsReadView from './components/GroupPostsReadView';
+import GroupPosts from './components/GroupPosts';
 import Announcements from './components/Announcements';
 import Calendar from './components/Calendar';
 import ProfileRead from './components/ProfileRead';
@@ -22,7 +22,7 @@ ReactDOM.render(
       <div>
         <Route exact path='/home' component={App} />
         <Route exact path='/' component={App} />
-        <Route path='/group_posts' component={GroupPostsReadView} />
+        <Route path='/group_posts' component={GroupPosts} />
         <Route path='/announcements' component={Announcements} />
         <Route path='/groups' component={Groups} />        
         <Route path='/accounts/register' component={RegisterView} />

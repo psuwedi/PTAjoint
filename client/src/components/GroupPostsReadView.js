@@ -10,6 +10,7 @@ import '../App.css';
 import {
   getFromStorage,
 } from '../utils/storage';
+import axios from 'axios';
 
 
 
@@ -21,10 +22,15 @@ class GroupPostsReadView extends Component {
 
     this.state = {
       name: '', 
-      groupId: '' 
+      groupId: '',
+      posts:[]
     };
+
+  
   
   }
+
+
   
   componentDidMount() {
     const obj = getFromStorage('the_main_app');
@@ -32,9 +38,11 @@ class GroupPostsReadView extends Component {
       const { groupId, name } = obj;
       this.setState({
         name,
-        groupId
+        groupId,
+       
       })
     }
+
   }
   render() {
     return (
@@ -44,7 +52,7 @@ class GroupPostsReadView extends Component {
           <AppNavbar name={(this.state.name.length>0)?(this.state.name):('')}></AppNavbar>
        </div>
         <CreatePost></CreatePost>
-        <GroupPosts groupId={this.state.groupId}></GroupPosts>
+        <GroupPosts groupId={this.state.groupId} ></GroupPosts>
         <AppFooter></AppFooter>
       </div>
       </div>
