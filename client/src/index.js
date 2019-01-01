@@ -12,6 +12,7 @@ import Groups from './components/Groups';
 import GroupPostsReadView from './components/GroupPostsReadView';
 import Announcements from './components/Announcements';
 import Calendar from './components/Calendar';
+import ProfileRead from './components/ProfileRead';
 
 
 
@@ -26,6 +27,7 @@ ReactDOM.render(
         <Route path='/groups' component={Groups} />        
         <Route path='/accounts/register' component={RegisterView} />
         <Route path='/accounts/login' component={LoginView} />
+        <Route path='/profile' component={ProfileRead} />
         <Route path='/posts/:id' component={ReadView} />
         <Route path='/calendar' component={Calendar} />
       </div>
