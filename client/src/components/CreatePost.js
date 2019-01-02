@@ -46,8 +46,8 @@ class CreatePost extends Component {
         .get('http://localhost:5000/api/groups/')
         .then(res =>{
 
-            // Only allow admins to post announcements
-            if(!obj || obj.role !=2){
+            // Only allow admins and teachers to post announcements
+            if(!obj || obj.role !=2 || obj.role !=1){
                 res.data.map((group, i) => {
                     if(group._id === "5c274dc9abeaa32ba09ce3ed"){
                         res.data.splice(i,1);
