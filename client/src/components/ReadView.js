@@ -8,7 +8,7 @@ import 'mdbreact/dist/css/mdb.css';
 import '../App.css';
 import { Button, Card, CardBody, CardTitle, CardText, Input } from 'mdbreact';
 import axios from 'axios';
-import TimeAgo from '../components/TimeAgo';
+import Comment from '../components/Comment';
 import { getFromStorage } from '../utils/storage';
 
 
@@ -188,9 +188,9 @@ class ReadView extends Component {
               <p>{this.state.post.content}</p>
               <p><small>Posted {(this.state.post.createdAt)?(this.format_date_created(this.state.post.createdAt)):("Loading...")} </small></p>
             </CardText>
-           
         </CardBody>
     </Card>
+    <Comment></Comment>
 
     <div className="row justify-content-md-center">
     <div className="col-12 col-md-auto">

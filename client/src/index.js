@@ -13,6 +13,7 @@ import GroupPosts from './components/GroupPosts';
 import Announcements from './components/Announcements';
 import Calendar from './components/Calendar';
 import ProfileRead from './components/ProfileRead';
+import Comment from './components/Comment';
 
 
 
@@ -30,6 +31,7 @@ ReactDOM.render(
         <Route path='/profile' component={ProfileRead} />
         <Route path='/posts/:id' component={ReadView} />
         <Route path='/calendar' component={Calendar} />
+        <Route path='/comment' component={Comment} />
       </div>
   </Router>,
   document.getElementById('root')

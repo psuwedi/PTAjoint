@@ -84,6 +84,82 @@ const UserSession = require('../../models/UserSession');
       });
     }); // end of sign up endpoint
 
+
+
+
+        /*
+     * Sign up
+     * @route POST api/users/account/signup
+     * @desc Create new user
+     * @access public
+     */
+    router.put('/account/update_profile/:id', (req, res, next) => {
+      const { body } = req;
+      
+      let {
+        email
+      } = body;
+      
+
+      if(email){
+
+        email = email.toLowerCase();
+        email = email.trim();
+      
+
+
+      // Steps:
+      // 1. Verify email doesn't exist
+      // 2. Save
+
+      User.find({
+        email: email
+      }, (err, previousUsers) => {
+        if (err) {
+          return res.send({
+            success: false,
+            message: 'Error: Server error'
+          });
+        } else if (previousUsers.length > 0 && previousUsers._id != req.params.id) {
+          return res.send({
+            success: false,
+            message: 'Error: Email is already taken.'
+          });
+        }
+
+ 
+
+ 
+      });
+    }
+
+
+    User.findByIdAndUpdate(
+      // the id of the item to find
+      req.params.id,
+      
+      // the change to be made. Mongoose will smartly combine your existing 
+      // document with this change, which allows for partial updates too
+      body,
+      
+      // an option that asks mongoose to return the updated version 
+      // of the document instead of the pre-updated one.
+      {new: true},
+      
+      // the callback function
+      (err, user) => {
+      // Handle any possible database errors
+          if (err) return res.status(500).send(err);
+          return res.send({
+            success: true,
+            user
+          });
+      }
+  )
+
+    }); // end of update endpoint
+
+
     /*
      * Sign in
      * @route POST api/users/account/signin

@@ -53,7 +53,7 @@ class Calendar extends Component{
 
     render(){
         return(
-            <MDBContainer className="mb-4">
+            <MDBContainer className="mb-8">
                 <AppNavbar name={this.state.name}></AppNavbar>
              <EventCalendar 
                 className="mt-4"
