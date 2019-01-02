@@ -47,7 +47,7 @@ class CreatePost extends Component {
         .then(res =>{
 
             // Only allow admins and teachers to post announcements
-            if(!obj || obj.role !=2 || obj.role !=1){
+            if(!obj || !obj.role || obj.role == 0){
                 res.data.map((group, i) => {
                     if(group._id === "5c274dc9abeaa32ba09ce3ed"){
                         res.data.splice(i,1);
