@@ -22,7 +22,9 @@ class ReadView extends Component {
           postId: this.props.match.params.id,
           hideUpdateView: true,
           name: '',
-          author: ''
+          author: '',
+          userId: '',
+          userRole: ''
         };
 
       
@@ -35,6 +37,7 @@ class ReadView extends Component {
         this.loadPost = this.loadPost.bind(this);
         this.get_author_name = this.get_author_name.bind(this);
         this.format_date_created = this.format_date_created.bind(this);
+        this.setIdAndRole = this.setIdAndRole.bind(this);
         
       }
 
@@ -87,6 +90,16 @@ class ReadView extends Component {
 
         reloadPosts (){     
           window.location.assign("/home");
+      }
+
+      setIdAndRole(){
+
+        let obj  = getFromStorage("the_main_app");
+        if(obj && obj.userId && obj.role){
+
+          const {userId, role } = obj;
+          this.setState({userId, userRole: role });
+        }
       }
 
     //Delete post 
@@ -164,6 +177,7 @@ class ReadView extends Component {
             })
           }
         this.loadPost();
+        this.setIdAndRole();
         
         setTimeout(this.get_author_name(this.state.post.userId));
         
@@ -193,18 +207,20 @@ class ReadView extends Component {
     <Comment></Comment>
 
     <div className="row justify-content-md-center">
-    <div className="col-12 col-md-auto">
+    <div className="col-4 col-md-auto">
             
-            <Link to="/home">
-              <Button color="primary" rounded outline><i className="fa fa-angle-double-left leftMargin"></i>View all posts</Button>
-            </Link>
+              <Link to="/home">
+                <Button color="primary" rounded outline><i className="fa fa-angle-double-left leftMargin"></i>View all posts</Button>
+              </Link>
+               <div className={this.state.userId != this.state.post.userId && this.state.userRole != 2 ? 'd-none': ""}>
+                  <Link to="#">
+                    <Button onClick={this.toggleClass} color="success" rounded outline><i className="fa fa-pencil leftMargin"></i>Update Post</Button>
+                  </Link>
+                  <Link to="#">
+                    <Button onClick={this.deletePost} color="danger" rounded outline><i className="fa fa-trash leftMargin"></i>Delete Post</Button>
+                  </Link>
+              </div>
          
-            <Link to="#">
-              <Button onClick={this.toggleClass} color="success" rounded outline><i className="fa fa-pencil leftMargin"></i>Update Post</Button>
-            </Link>
-            <Link to="#">
-              <Button onClick={this.deletePost} color="danger" rounded outline><i className="fa fa-trash leftMargin"></i>Delete Post</Button>
-            </Link>
     </div>
     </div>
           </div>

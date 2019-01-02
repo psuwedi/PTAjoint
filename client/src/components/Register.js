@@ -115,7 +115,7 @@ class Signup extends Component {
       .then(res => {
 
         if(res.user){
-          setInStorage('the_main_app', { name: res.user.firstName+' '+res.user.lastName, userId: res.user._id  });
+          setInStorage('the_main_app', { name: res.user.firstName+' '+res.user.lastName, userId: res.user._id, role: userRole });
           this.setState({ 
             redirect: true,
             email,
@@ -237,7 +237,7 @@ class Signup extends Component {
                 onChange={this.onTextboxChangePassword}
               />
               <MDBInput
-                label="Your password"
+                label="Confirm password"
                 group
                 type="password"
                 name="password"
@@ -271,15 +271,7 @@ class Signup extends Component {
 
 
 
-              <p className="font-small grey-text d-flex justify-content-end">
-                Forgot
-                <a
-                  href="#!"
-                  className="dark-grey-text font-weight-bold ml-1"
-                >
-                  Password?
-                </a>
-              </p>
+           
               <div className="text-center mb-4 mt-5">
                 <MDBBtn
                   color="primary"
