@@ -94,6 +94,12 @@ class AppNavbar extends Component {
                               <NavLink to="/staff" onClick={ <Redirect to="/staff" />} >Staff</NavLink>
                           </NavItem>
                           <NavItem>
+                              <NavLink to="/groups" onClick={ <Redirect to="/groups" />} >Groups</NavLink>
+                          </NavItem>
+                          <NavItem>
+                              <NavLink to="/files" onClick={ <Redirect to="/files" />} >Files</NavLink>
+                          </NavItem>
+                          <NavItem>
                               <NavLink to="/announcements" onClick={ <Redirect to="/announcements" />} > Announcements</NavLink>
                           </NavItem>
                           <NavItem>
@@ -105,9 +111,6 @@ class AppNavbar extends Component {
                                     <DropdownMenu>
                                         <DropdownItem> 
                                         <Link to="/accounts/login" onClick={ <Redirect to="/accounts/login" /> }>Logout</Link>
-                                        </DropdownItem>
-                                        <DropdownItem>
-                                        <Link to="/groups" onClick={<Redirect to="/groups" /> }>Groups</Link>
                                         </DropdownItem>
                                         <DropdownItem>
                                         <Link to="/profile" onClick={ <Redirect to="/profile" />} > Profile</Link>

@@ -3,6 +3,7 @@ import Group from './Group';
 import AppNavbar from './AppNavbar'
 import AppFooter from './AppFooter';
 import Spinner from './Spinner';
+import CreateGroup from './CreateGroup';
 import axios from 'axios';
 import '../App.css';
 import { getFromStorage } from '../utils/storage';
@@ -14,6 +15,7 @@ class Groups extends Component {
         super(props);
         this.state = {
           name: '',
+          role: null,
           isLoading: true,
           groups: []
         };
@@ -41,6 +43,13 @@ class Groups extends Component {
           })
         }
 
+        if (obj && obj.role) {
+          const { role } = obj;
+          this.setState({
+            role,
+          })
+        }
+
         //load all the required data
         
         this.loadData()
@@ -61,6 +70,12 @@ class Groups extends Component {
             <div className="container">
                 <AppNavbar  name={(this.state.name.length>0)?(this.state.name):('')}/>
             <div className="pushDown">
+
+            {
+              (this.state.role ===2 )?(
+                <CreateGroup></CreateGroup>
+              ):("")
+            }
             <React.Fragment>	
 				{this.state.groups.map((group, i) =>
 					<Group group = {group} key={i} ></Group>

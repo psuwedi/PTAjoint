@@ -54,7 +54,7 @@ const Post = require('../../models/Post');
         } else if (previousGroup.length > 0) {
           return res.send({
             success: false,
-            message: 'Error: Another group with the exact same name already exists.'
+            message: 'Error: Another group with the same name already exists.'
           });
         }
 
