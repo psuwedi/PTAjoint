@@ -9,7 +9,8 @@ import { Navbar,
          Dropdown, 
          DropdownToggle, 
          DropdownMenu, 
-         DropdownItem } from 'mdbreact';
+         DropdownItem,
+         MDBIcon } from 'mdbreact';
 import { getFromStorage, clearStorage } from '../utils/storage';
 import axios from 'axios';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -110,10 +111,10 @@ class AppNavbar extends Component {
                                     <DropdownToggle nav caret>{this.props.name}</DropdownToggle>
                                     <DropdownMenu>
                                         <DropdownItem> 
-                                        <Link to="/accounts/login" onClick={ <Redirect to="/accounts/login" /> }>Logout</Link>
+                                        <Link to="/accounts/login" onClick={ <Redirect to="/accounts/login" /> }><span className="mr-1"><MDBIcon icon="sign-out" /></span>Logout</Link>
                                         </DropdownItem>
                                         <DropdownItem>
-                                        <Link to="/profile" onClick={ <Redirect to="/profile" />} > Profile</Link>
+                                        <Link to="/profile" onClick={ <Redirect to="/profile" />} > <span className="mr-1"><MDBIcon icon="gear" /></span>Profile</Link>
                                         </DropdownItem>
                                     </DropdownMenu>
                                 </div>

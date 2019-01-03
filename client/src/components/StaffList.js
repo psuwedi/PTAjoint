@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Table, TableBody, TableHead  } from 'mdbreact';
 import AppNavbar from './AppNavbar';
 import AppFooter from './AppFooter';
 import { getFromStorage } from '../utils/storage';
@@ -78,12 +79,25 @@ class StaffList extends Component {
 
             <div className="container">
             <AppNavbar name={(this.state.name.length>0)?(this.state.name):('')}/>
+                <Table className="pushDown">
+                    <TableHead color="primary-color" textWhite>
+                        <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        </tr>
+                </TableHead>
+                <TableBody>
                 {
                     staff.map((user,i) =>
-                    <Staff user={user} key={i}></Staff>
+                    <Staff user={user} userKey={i} key={i}></Staff>
                 )
                 }
-             <AppFooter />
+                </TableBody>
+                </Table>
+            <AppFooter />
             </div>
 
         )
