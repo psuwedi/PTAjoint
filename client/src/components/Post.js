@@ -4,6 +4,7 @@ import TimeAgo from './TimeAgo';
 import '../Post.css';
 import PropTypes from 'prop-types';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 
 
@@ -25,6 +26,7 @@ export default class Post extends Component {
         this.getTags = this.getTags.bind(this);
         this.likePost = this.likePost.bind(this);
         this.userHasAlreadyLikedPost = this.userHasAlreadyLikedPost.bind(this);
+        this.countComments = this.countComments.bind(this);
       }
 
       
@@ -118,6 +120,12 @@ export default class Post extends Component {
                 });
         }
 
+        countComments(){
+            if(this.props.post.commennts){
+                let count = this.props.post.comments.length;
+                this.setState({commentCount: count}) 
+            }
+        }
          
 
       
@@ -126,12 +134,16 @@ export default class Post extends Component {
     
       componentDidMount() {
 
+            this.countComments();
+
             //Get post passed from props and slice post if it's too long
             this.slicePost();
             
             this.getUser();
 
             this.getTags();
+
+            
             
   
       }
@@ -194,10 +206,10 @@ export default class Post extends Component {
                                  <TimeAgo timestamp={ this.props.timestamp }/>
                                 </li>
                                 <li className="comments">
-                                    <a href="#">
+                                    <a href={'/posts/'+this.props.post._id}  onClick={ <Redirect to={'/posts/'+this.props.post._id} />}>
                                         <svg className="icon-bubble">
                                             <use xlinkHref="#icon-bubble"></use>
-                                        </svg><span className="numero">8</span></a>
+                                        </svg><span className="numero">{this.props.post.comments.length}</span></a>
                                 </li>
                                 <li className="shares">
                                     <a href="#">

@@ -207,6 +207,7 @@ class ReadView extends Component {
         </CardBody>
     </Card>
     <p>
+      
       <CreateComment post={this.state.post} name={this.state.name}></CreateComment>
     </p>
     {
