@@ -85,6 +85,25 @@ const UserSession = require('../../models/UserSession');
     }); // end of sign up endpoint
 
 
+        /*
+     * Get all Staff members
+     * @route GET api/users/staff
+     * @desc Get all staff
+     * @access public
+     */
+
+
+    router.get('/staff', (req, res) => {
+      User.find()
+      .sort({ createdAt: -1 })
+      .then( users => {
+      
+        res.json(users)
+      })
+  });
+  
+
+
 
 
         /*

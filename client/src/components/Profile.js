@@ -184,7 +184,7 @@ submitHandler(event){
                         <div className="alert alert-info col-lg-8 alert-dismissable">
                         <a className="panel-close close" data-dismiss="alert">×</a> 
                         <i className="fa fa-coffee mr-2"/>
-                        This is will be used this to show important messages to the user.
+                        This will be used to show important messages to the user.
                         </div>
                         <h3>Personal info</h3>
                         <form className="form-horizontal" role="form">

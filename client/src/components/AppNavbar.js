@@ -91,6 +91,9 @@ class AppNavbar extends Component {
                               <NavLink to="/calendar" onClick={ <Redirect to="/calendar" />} >Calendar</NavLink>
                           </NavItem>
                           <NavItem>
+                              <NavLink to="/staff" onClick={ <Redirect to="/staff" />} >Staff</NavLink>
+                          </NavItem>
+                          <NavItem>
                               <NavLink to="/announcements" onClick={ <Redirect to="/announcements" />} > Announcements</NavLink>
                           </NavItem>
                           <NavItem>

@@ -14,6 +14,7 @@ import Announcements from './components/Announcements';
 import Calendar from './components/Calendar';
 import ProfileRead from './components/ProfileRead';
 import Comment from './components/Comment';
+import StaffList from './components/StaffList';
 
 
 
@@ -32,6 +33,7 @@ ReactDOM.render(
         <Route path='/posts/:id' component={ReadView} />
         <Route path='/calendar' component={Calendar} />
         <Route path='/comment' component={Comment} />
+        <Route path='/staff' component={StaffList} />
       </div>
   </Router>,
   document.getElementById('root')
