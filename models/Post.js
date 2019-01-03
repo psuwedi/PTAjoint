@@ -31,6 +31,9 @@ const PostSchema = new Schema({
     likers: {
         type: Array
     },
+    comments: {
+        type: Array,
+    },
 },
 {
     // For createdAt and updatedAt timestamps

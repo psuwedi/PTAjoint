@@ -127,5 +127,38 @@ router
      .catch( err => res.status(404).json({ success: false}));
 });
 
+
+
+
+router.put('/:id/comment', (req, res, next) => {
+  const { body } = req;
+
+ 
+
+Post.findByIdAndUpdate(
+  // the id of the item to find
+  req.params.id,
+  
+  // the change to be made. Mongoose will smartly combine your existing 
+  // document with this change, which allows for partial updates too
+  body,
+  
+  // an option that asks mongoose to return the updated version 
+  // of the document instead of the pre-updated one.
+  {new: true},
+  
+  // the callback function
+  (err, post) => {
+  // Handle any possible database errors
+      if (err) return res.status(500).send(err);
+      return res.send({
+        success: true,
+        post
+      });
+  }
+)
+
+}); // end of update endpoint
+
 module.exports = router;
 

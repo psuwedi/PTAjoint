@@ -9,6 +9,7 @@ import '../App.css';
 import { Button, Card, CardBody, CardTitle, CardText, Input } from 'mdbreact';
 import axios from 'axios';
 import Comment from '../components/Comment';
+import CreateComment from '../components/CreateComment';
 import { getFromStorage } from '../utils/storage';
 
 
@@ -38,6 +39,7 @@ class ReadView extends Component {
         this.get_author_name = this.get_author_name.bind(this);
         this.format_date_created = this.format_date_created.bind(this);
         this.setIdAndRole = this.setIdAndRole.bind(this);
+        
         
       }
 
@@ -204,7 +206,20 @@ class ReadView extends Component {
             </CardText>
         </CardBody>
     </Card>
-    <Comment></Comment>
+    <p>
+      <CreateComment post={this.state.post} name={this.state.name}></CreateComment>
+    </p>
+    {
+      (this.state.post.comments)?(
+        this.state.post.comments.map((comment, i) =>
+      <Comment comment={comment}></Comment>
+    )
+  ):("")
+      
+      
+
+    }
+    
 
     <div className="row justify-content-md-center">
     <div className="col-4 col-md-auto">
@@ -221,9 +236,9 @@ class ReadView extends Component {
                   </Link>
               </div>
          
-    </div>
-    </div>
-          </div>
+            </div>
+            </div>
+            </div>
         </div>
        </div>
 

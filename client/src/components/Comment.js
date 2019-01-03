@@ -22,11 +22,11 @@ class Comment extends Component{
             <Row>
                 <div className="col-md-1 mt-3">
                 <span> <img src={parent_avatar} className="avatar img-fluid  img-circle" alt="avatar" /></span>
-                   username
+                   {this.props.comment.name}
                 </div>
                 <div className="col-md-10">
                     <div className="triangle-border">
-                        <span className="vertical-ellipsis">Cras ultricies ligula sed magna dictum porta.</span>
+                        <span className="vertical-ellipsis">{this.props.comment.content}</span>
                     </div>
                     
                 </div>
