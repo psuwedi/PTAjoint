@@ -20,12 +20,14 @@ class Group extends Component {
         this.state = {
           isLoading: true,
           currentUserId:"",
+          userId:"",
           redirect: false,
           groups: []
         };
         this.get_random_color = this.get_random_color.bind(this);
         this.check_if_user_is_already_a_member = this.check_if_user_is_already_a_member.bind(this);
-        this.view_group_posts = this.view_group_posts.bind(this, this.props.group._id)
+        this.view_group_posts = this.view_group_posts.bind(this, this.props.group._id);
+        this.getUserId = this.getUserId.bind(this);
       }
 
     get_random_color(){
@@ -33,6 +35,16 @@ class Group extends Component {
           let random_color = colors[Math.floor(Math.random() * colors.length)];
           return random_color;
            
+    }
+
+    getUserId() {
+
+      const obj = getFromStorage('the_main_app');
+      if(obj && obj.userId){
+        let {userId} = obj;
+        this.setState({userId});
+      }
+      
     }
 
     check_if_user_is_already_a_member(userId, groupMembers){
@@ -57,6 +69,10 @@ class Group extends Component {
       
 
     }
+
+    componentDidMount(){
+      this.getUserId();
+    }
     
     render(){
       
@@ -77,7 +93,7 @@ class Group extends Component {
                       <p>
                       <Button color='primary' 
                         onClick={this.view_group_posts}>{
-                        (this.check_if_user_is_already_a_member(getFromStorage('the_main_app').userId, this.props.group.members))?
+                        (this.check_if_user_is_already_a_member(this.state.userId, this.props.group.members))?
                         (<span> <MDBIcon className="mr-2"  icon="folder-open"  /> View posts</span> ):(<span> <MDBIcon className="mr-2" icon=" fa-angle-double-right" />Join Group</span>)
                       }</Button>
                       </p>
