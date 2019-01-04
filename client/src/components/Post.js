@@ -29,6 +29,7 @@ export default class Post extends Component {
         this.userHasAlreadyLikedPost = this.userHasAlreadyLikedPost.bind(this);
         this.countComments = this.countComments.bind(this);
         this.reloadPost = this.reloadPost.bind(this);
+        this.redirectToLogin = this.redirectToLogin.bind(this);
       }
 
       
@@ -105,10 +106,12 @@ export default class Post extends Component {
 
             const obj = getFromStorage('the_main_app');
             
-            
+            //if theres no active session 
+            // Make sure the user logs in before they can like the post
               if(!obj){
                   alert("Login to like");
-                  return false;
+                  this.redirectToLogin();
+                
               }
             
 
@@ -141,6 +144,10 @@ export default class Post extends Component {
 
         reloadPost (){
             window.location.reload();
+        }
+
+        redirectToLogin(){
+            window.location.assign('/accounts/login');
         }
          
 
