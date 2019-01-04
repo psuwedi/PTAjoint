@@ -127,7 +127,7 @@ class ReadView extends Component {
           this.setState(
             {
               post: {
-                title: event.target.title
+                title: event.target.value
               }
               
             }
@@ -138,7 +138,7 @@ class ReadView extends Component {
           this.setState(
             {
               post: {
-                content: event.target.content
+                content: event.target.value
               }
               
             }
@@ -193,6 +193,7 @@ class ReadView extends Component {
   render() {
 
     let session = getFromStorage("the_main_app");
+    let { post } = this.state;
 
     return (
       <div className="App">
@@ -201,7 +202,7 @@ class ReadView extends Component {
           <AppNavbar name={(this.state.name.length>0)?(this.state.name):('')}></AppNavbar>
        </div>
        
-       <div className={!this.state.hideUpdateView ? 'd-none': null}>
+       <div className={!this.state.hideUpdateView ? 'd-none': ""}>
         <div className="row justify-content-center">
           <div className="col-md-8">
 
@@ -256,17 +257,17 @@ class ReadView extends Component {
        </div>
 
        
-       <div className={this.state.hideUpdateView ? 'd-none': null} >
+       <div className={this.state.hideUpdateView ? 'd-none': ""} >
         <div className="card jumbotron-fluid pushDown">
           <div className="container">
           <div className="row justify-content-center">
               <div className="col-md-6">
               <form  onSubmit={this.updatePost} noValidate>
                   {/* Title input */}
-                  <Input label="Title" name="title" value={this.state.post.title} onChange={this.handleTitleChange} /> 
+                  <Input label="Title" name="title" value={post.title} onChange={this.handleTitleChange} /> 
 
                   {/* Post content */}
-                  <Input type="textarea" label="Content"  name="content" value={this.state.post.content} onChange={this.handleContentChange}/>
+                  <Input type="textarea" label="Content"  name="content" value={post.content} onChange={this.handleContentChange}/>
                   <div className="col-md-8">
                       <Button color="success" className="spaceBelow" type="submit">Save</Button>
                   </div>

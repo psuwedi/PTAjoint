@@ -129,14 +129,33 @@ Post.findByIdAndUpdate(
 
 router.put('/:id',(req,res) => {
     let updatedPost = req.body; 
-    Post.findOneAndUpdate(req.body.id, updatedPost, { new:true }, (err,post) => {
-      if(err){
-      return res.json({'success':false,'message':'Something went wrong','error':err});
-      }
-      console.log(post);
-      return res.json({'success':true,'message':'Post updated successfully', post});
-    })
-  });
+
+
+
+  Post.findByIdAndUpdate(
+
+  // the id of the item to find
+  req.params.id,
+  
+  // the change to be made. Mongoose will smartly combine the existing 
+  // post with this change, which allows for partial updates too
+  updatedPost,
+  
+  // an option that asks mongoose to return the updated version 
+  // of the post instead of the pre-updated one.
+  {new: true},
+  
+  // the callback function
+  (err, post) => {
+  // Handle any possible database errors
+      if (err) return res.status(500).send(err);
+      return res.send({
+        success: true,
+        post
+      });
+  }
+)
+});
 
 
 // @route DELETE api/posts
