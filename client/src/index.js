@@ -15,6 +15,7 @@ import Calendar from './components/Calendar';
 import ProfileRead from './components/ProfileRead';
 import Comment from './components/Comment';
 import StaffList from './components/StaffList';
+import Files from './components/Files';
 
 
 
@@ -34,6 +35,7 @@ ReactDOM.render(
         <Route path='/calendar' component={Calendar} />
         <Route path='/comment' component={Comment} />
         <Route path='/staff' component={StaffList} />
+        <Route path='/files' component={Files} />
       </div>
   </Router>,
   document.getElementById('root')

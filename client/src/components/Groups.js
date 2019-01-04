@@ -6,6 +6,7 @@ import Spinner from './Spinner';
 import CreateGroup from './CreateGroup';
 import axios from 'axios';
 import '../App.css';
+
 import { getFromStorage } from '../utils/storage';
 
 class Groups extends Component {
@@ -66,6 +67,7 @@ class Groups extends Component {
      
 
         return (
+           
             <div className="App">
             <div className="container">
                 <AppNavbar  name={(this.state.name.length>0)?(this.state.name):('')}/>

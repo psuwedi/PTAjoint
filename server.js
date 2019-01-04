@@ -2,11 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require("cors");
+const fileUpload = require('express-fileupload');
 
 
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
 const groups = require('./routes/api/groups');
+const files = require('./routes/api/files');
 
 
 const app = express();
@@ -16,6 +18,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(fileUpload());
 
 
 //DB config
@@ -35,6 +38,7 @@ mongoose
   app.use('/api/users', users);
   app.use('/api/posts', posts);
   app.use('/api/groups', groups);
+  app.use('/api/files', files);
 
   const port = process.env.PORT || 5000;
 
