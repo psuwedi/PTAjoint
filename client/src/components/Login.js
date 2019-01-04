@@ -118,6 +118,9 @@ class Login extends Component {
             signInError: res.message,
             isLoading: false,
           });
+
+          alert(this.state.signInError);
+          return false;
         }
       });
 

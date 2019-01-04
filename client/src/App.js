@@ -36,13 +36,21 @@ class App extends Component {
     }
   }
   render() {
+
+    const session = getFromStorage('the_main_app');
+
+
     return (
       <div className="App">
       <div className="container">
         <div className="pushDown">
           <AppNavbar name={(this.state.name.length>0)?(this.state.name):('')}></AppNavbar>
        </div>
-       <CreatePost></CreatePost>
+       {
+         (session)?(
+          <CreatePost></CreatePost>
+         ):("")
+       }
        <PostList></PostList>
         <AppFooter></AppFooter>
       </div>

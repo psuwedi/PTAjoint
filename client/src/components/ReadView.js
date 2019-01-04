@@ -97,10 +97,16 @@ class ReadView extends Component {
       setIdAndRole(){
 
         let obj  = getFromStorage("the_main_app");
-        if(obj && obj.userId && obj.role){
+        if(obj && obj.userId){
 
-          const {userId, role } = obj;
-          this.setState({userId, userRole: role });
+          const {userId} = obj;
+          this.setState({userId});
+        }
+
+        if(obj && obj.role){
+
+          const { role } = obj;
+          this.setState({userRole: role });
         }
       }
 
@@ -185,6 +191,9 @@ class ReadView extends Component {
         
       }
   render() {
+
+    let session = getFromStorage("the_main_app");
+
     return (
       <div className="App">
       <div className="container">
@@ -207,8 +216,11 @@ class ReadView extends Component {
         </CardBody>
     </Card>
     <p>
-      
-      <CreateComment post={this.state.post} name={this.state.name}></CreateComment>
+      { 
+        (session && session.userId)?(
+          <CreateComment post={this.state.post} name={this.state.name}></CreateComment>
+        ):("")
+      }
     </p>
     {
       (this.state.post.comments)?(

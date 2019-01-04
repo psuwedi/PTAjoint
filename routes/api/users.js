@@ -221,7 +221,7 @@ const UserSession = require('../../models/UserSession');
           if (users.length != 1) {
             return res.send({
               success: false,
-              message: 'Error: Invalid'
+              message: 'Error: Incorrect email or password'
             });
           }
 
@@ -230,7 +230,7 @@ const UserSession = require('../../models/UserSession');
           if (!user.validPassword(password)) {
             return res.send({
               success: false,
-              message: 'Error: Invalid password'
+              message: 'Error: Incorrect email or password'
             });
           }
           // Otherwise correct user

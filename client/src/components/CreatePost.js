@@ -62,7 +62,7 @@ class CreatePost extends Component {
     displayOrHideForm(){
 
         const obj = getFromStorage('the_main_app');
-
+    
         if(!obj){
             this.setState({hideCreateForm: true})
         }
