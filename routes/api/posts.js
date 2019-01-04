@@ -85,16 +85,43 @@ router.post('/', (req, res) => {
 // @desc Like post
 // @access Auth
 
-router.put('/:id/like',(req,res) => {
-  let updatedPost = req.body; 
-  Post.findOneAndUpdate(req.body.id, updatedPost, { new:true }, (err,post) => {
-    if(err){
-    return res.json({'success':false,'message':'Something went wrong','error':err});
-    }
-    // console.log(post);
-    return res.json({'success':true,'message':'Post updated successfully', post});
-  })
-});
+
+
+router.put('/:id/like', (req, res, next) => {
+  const { body } = req;
+  
+
+  // Steps:
+  // 1. Verify email doesn't exist
+  // 2. Save
+Post.findByIdAndUpdate(
+  // the id of the item to find
+  req.params.id,
+  
+  // the change to be made. Mongoose will smartly combine your existing 
+  // document with this change, which allows for partial updates too
+  body,
+  
+  // an option that asks mongoose to return the updated version 
+  // of the document instead of the pre-updated one.
+  {new: true},
+  
+  // the callback function
+  (err, post) => {
+  // Handle any possible database errors
+      if (err) return res.status(500).send(err);
+      return res.send({
+        success: true,
+        post
+      });
+  }
+)
+
+}); // end of update endpoint
+
+
+
+
 
 // @route PUT api/post
 // @desc Update post

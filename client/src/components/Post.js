@@ -5,6 +5,7 @@ import '../Post.css';
 import PropTypes from 'prop-types';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import { getFromStorage } from '../utils/storage';
 
 
 
@@ -27,6 +28,7 @@ export default class Post extends Component {
         this.likePost = this.likePost.bind(this);
         this.userHasAlreadyLikedPost = this.userHasAlreadyLikedPost.bind(this);
         this.countComments = this.countComments.bind(this);
+        this.reloadPost = this.reloadPost.bind(this);
       }
 
       
@@ -91,40 +93,54 @@ export default class Post extends Component {
         userHasAlreadyLikedPost(){
             
             console.log("Checking if user has already liked post...");
-            return this.props.post.likers.indexOf(this.state.user._id) > -1;
+            return this.props.post.likers.includes(this.state.user._id);
 
         }
 
         likePost(){
 
             const {
-                title,
-                content,
                 likers
             } = this.props.post;
 
+            const obj = getFromStorage('the_main_app');
+            
+            
+              if(!obj){
+                  alert("Login to like");
+                  return false;
+              }
             
 
-            axios.put('http://localhost:5000/api/posts/'+this.state.post._id+'/like', {
-                title,
-                content,
-                likers: likers.push(this.state.user._id)
-            } )
-                .then(res => {
-                    // this.setState({ post: res.data.post });
-                    console.log(res.data);
-                   
+            
+            if( likers.includes(obj.userId)){
+                alert("Already liked this post");
+                return false;
+            }
+            
+            let updatedLikers = [...this.props.post.likers, obj.userId]
+
+            // Save post to DB
+            axios
+            .put(`http://localhost:5000/api/posts/${this.props.post._id}/like`, {  
+                    likers: updatedLikers,
                 })
-                .catch(err =>{
-                    console.log('Error liking post: '+err)
-                });
-        }
+              .then(res => {
+                  this.reloadPost();
+                console.log(res.data);
+              });
+            }
+        
 
         countComments(){
             if(this.props.post.commennts){
                 let count = this.props.post.comments.length;
                 this.setState({commentCount: count}) 
             }
+        }
+
+        reloadPost (){
+            window.location.reload();
         }
          
 
@@ -212,10 +228,11 @@ export default class Post extends Component {
                                         </svg><span className="numero">{this.props.post.comments.length}</span></a>
                                 </li>
                                 <li className="shares">
-                                    <a href="#">
-                                        <svg className={ (this.userHasAlreadyLikedPost) ? (" icon-star-filled"): ("icon-star")} onClick={(this.userHasAlreadyLikedPost) ? ("") : (this.likePost)}>
+                                    <div>
+                                        <svg className={ (this.userHasAlreadyLikedPost) ? ("icon-star-filled"): ("icon-star")} onClick={this.likePost}>
                                             <use xlinkHref="#icon-star"></use>
-                                        </svg><span className="numero">{this.props.post.likers.length}</span></a>
+                                        </svg><span className="numero">{this.props.post.likers.length}</span>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
