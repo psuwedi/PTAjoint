@@ -90,17 +90,18 @@ class Files extends Component {
                     
                 <MDBCard color="success-color" text="white" className="pushDown">
                 <MDBCardBody>
-                    <span className="text-justify">
+                    <p className="text-justify">
                     {file.name}
-                    </span>
+                   
                     
-                    <a href={file.path} >
+                    <a href={"file:///"+file.path} target="_blank">
 
 
-                    <span className="mr-2">
+                    <span className="ml-2">
                     <MDBIcon icon="download" />
                     </span>
                     </a>
+                    </p>
                     
                     
                 </MDBCardBody>
